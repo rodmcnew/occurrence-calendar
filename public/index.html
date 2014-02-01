@@ -20,6 +20,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            cursor: pointer;
         }
 
         table {
@@ -29,25 +30,30 @@
         .oddMonth {
             background-color: #eeeeee;
         }
+
         .today {
             border: 3px solid blue;
             color: blue;
         }
-        .severity1{
-            background-color:yellow;
+
+        .severity1 {
+            background-color: yellow;
         }
-        .severity2{
-            background-color:orange;
+
+        .severity2 {
+            background-color: orange;
         }
-        .severity3{
-            background-color:red;
+
+        .severity3 {
+            background-color: red;
         }
     </style>
 </head>
 <body ng-controller="CalenderCtrl">
 <table>
     <tr ng-repeat="week in weeks">
-        <td ng-repeat="day in week" ng-click="dayClick(day)" ng-class="{oddMonth: (day.month % 2 == 1),today:day.today,severity1: day.value==1,severity2: day.value==2,severity3: day.value==3}">
+        <td ng-repeat="day in week" ng-click="dayClick(day)"
+            ng-class="{oddMonth: (day.month % 2 == 1),today:day.today,severity1: day.value==1,severity2: day.value==2,severity3: day.value==3}">
             {{day.dayOfMonth}}
         </td>
     </tr>
