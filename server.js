@@ -17,7 +17,7 @@ var mongoose = require('mongoose/');
 var crypto = require('crypto');
 
 // Connect to mongo
-mongoose.connect(config.db);
+mongoose.connect(process.env.MONGOHQ_URL || config.db);
 
 // Create mongoose schema/model
 var Schema = mongoose.Schema;
@@ -25,19 +25,29 @@ var Calender = mongoose.model(
     'Calender', new Schema({id: String, days: Schema.Types.Mixed})
 );
 
-// Routes
-server.post('/api/calenders', postCalender);
-server.get('/api/calenders/:calenderId', getCalender);
-server.get('/api/calenders/:calenderId/days', getDays);
-server.get('/api/calenders/:calenderId/days/:dayId', getDay);
-server.put('/api/calenders/:calenderId/days/:dayId', putDay);
+// Static files
+server.get('/', restify.serveStatic({
+    directory: './public',
+    default: 'index.html'
+}));
+server.get(/\/assets\/?.*/, restify.serveStatic({
+    directory: './public/assets'
+}));
+
+// Api Routes
+server.post('/api/calendars', postCalender);
+server.get('/api/calendars/:calenderId', getCalender);
+server.get('/api/calendars/:calenderId/days', getDays);
+server.get('/api/calendars/:calenderId/days/:dayId', getDay);
+server.put('/api/calendars/:calenderId/days/:dayId', putDay);
+
 
 // Test Routs
-server.get('/test/api/calenders', postCalender);
-server.get('/test/api/calenders/:calenderId/days/put', putDayTest);
+server.get('/test/api/calendars', postCalender);
+server.get('/test/api/calendars/:calenderId/days/put', putDayTest);
 
 //Start server
-server.listen(8080, '127.0.0.1', function () {
+server.listen(process.env.PORT || 80, function () {
         console.log('%s listening at %s', server.name, server.url);
     }
 );
@@ -54,7 +64,7 @@ function postCalender(req, res, next) {
 
                 calender.save(function (err) {
                     if (!err) {
-                        res.header('Location', '/api/calenders/' + calender.id);
+                        res.header('Location', '/api/calendars/' + calender.id);
                         res.send(302);
                     } else {
                         console.error(err);
@@ -259,13 +269,3 @@ Base64UrlCrypto.baseUrlBase64ToBase64 = function (urlBase64Str) {
 };
 
 /*********** END Base64UrlCrypto ***********/
-
-
-/*********** BEGIN static server for dev ***********/
-var connect = require('connect');
-
-connect()
-    .use(connect.logger('dev'))
-    .use(connect.static('../public'))
-    .listen(8000);
-/*********** END static server for dev ***********/

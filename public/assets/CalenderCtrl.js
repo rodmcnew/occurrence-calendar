@@ -1,25 +1,38 @@
 var calenderApp = angular.module('calenderApp', []);
 
-var calenderId = 'FAWNIWt2Z1kZAhzj3rAi6g~Nu6EkW7GCZ2GCrlRPJaXyg';
-var apiUrl = '//127.0.0.1:8080/api/calenders/';
+var apiBase = '/api/calendars';
 
-calenderApp.controller('CalenderCtrl', function ($scope, $http, $anchorScroll) {
+calenderApp.controller('CalenderCtrl', function ($scope, $http, $location) {
     $scope.weeks = [];
 
     $scope.habitDays = [];
+
+
+    if ($location.search().calendar) {
+        $http.get(getApiUrl()).success(handleCalanderResonse);
+    } else {
+        $http.post(apiBase).success(function (calendar) {
+            $location.search('calendar',calendar.id);
+            handleCalanderResonse(calendar);
+        });
+    }
+
+    function getApiUrl() {
+        return apiBase + '/' + $location.search().calendar
+    }
 
     function getDayId(date) {
         return date.getUTCFullYear() + '-' + date.getUTCMonth() + '-' + date.getUTCDate();
     }
 
-    $http.get(apiUrl + calenderId).success(
-        function (result) {
-            $scope.habitDays = result.days;
-            console.log($scope.habitDays);
-            setupDays();
-            setTimeout(function(){window.scrollTo(0, 99999);},1);
-        }
-    );
+
+    function handleCalanderResonse(calendar) {
+        $scope.habitDays = calendar.days;
+        setupDays();
+        setTimeout(function () {
+            window.scrollTo(0, 99999);
+        }, 1);
+    }
 
     function setupDays() {
         var today = getDayId(Date.today());
@@ -43,7 +56,6 @@ calenderApp.controller('CalenderCtrl', function ($scope, $http, $anchorScroll) {
 
                 var value = 0;
                 if ($scope.habitDays[dayId]) {
-                    console.log(dayId);
                     value = $scope.habitDays[dayId];
                 }
                 var newDay = {dayOfMonth: dayOfMonth, month: month, today: dayId == today, id: dayId, value: value};
@@ -58,10 +70,6 @@ calenderApp.controller('CalenderCtrl', function ($scope, $http, $anchorScroll) {
         if (day.value > 3) {
             day.value = 0
         }
-        $http.put(apiUrl + calenderId + '/days/' + day.id, {value: day.value});
+        $http.put(getApiUrl() + '/days/' + day.id, {value: day.value});
     };
-
-//    console.log($scope.weeks);
-
-//    $scope.$apply();
 });
