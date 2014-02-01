@@ -15,7 +15,7 @@ calenderApp.controller('CalenderCtrl', function ($scope, $http, $location) {
             $location.search('calendar',calendar.id);
             handleCalanderResonse(calendar);
             setTimeout(function(){
-                alert('New calender created just for you!\n\nBookmark this URL to edit it later on any device that has this URL.\n\nTap a day to toggle its colors.');
+                alert('New calender created!\n\nBookmark this URL to edit it later on any device that has this URL.\n\nTap a day to toggle its colors.');
             },10)
         });
     }
