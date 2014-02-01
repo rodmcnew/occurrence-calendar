@@ -3,53 +3,11 @@
 <head>
     <title>Habit-Tracker</title>
     <link rel="stylesheet" href="/assets/bootstrap.css"/>
+    <link rel="stylesheet" href="/assets/style.css"/>
 
     <script src="/assets/angular.min.js"></script>
     <script src="/assets/date.js"></script>
     <script src="/assets/CalenderCtrl.js"></script>
-    <style>
-        td {
-            width: 14%;
-            height: 1em;
-            border: 1px solid black;
-            text-align: center;
-            vertical-align: center;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            cursor: pointer;
-            font-size: 3em;
-            padding: 1em;
-        }
-
-        table {
-            width: 100%;
-        }
-
-        .oddMonth {
-            background-color: #eeeeee;
-        }
-
-        .today {
-            border: 3px solid blue;
-            color: blue;
-        }
-
-        .severity1 {
-            background-color: yellow;
-        }
-
-        .severity2 {
-            background-color: orange;
-        }
-
-        .severity3 {
-            background-color: red;
-        }
-    </style>
 </head>
 <body ng-controller="CalenderCtrl">
 <table>
@@ -60,6 +18,5 @@
         </td>
     </tr>
 </table>
-
 </body>
 </html>

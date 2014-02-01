@@ -12,11 +12,11 @@ calenderApp.controller('CalenderCtrl', function ($scope, $http, $location) {
         $http.get(getApiUrl()).success(handleCalanderResonse);
     } else {
         $http.post(apiBase).success(function (calendar) {
-            $location.search('calendar',calendar.id);
+            $location.search('calendar', calendar.id);
             handleCalanderResonse(calendar);
-            setTimeout(function(){
+            setTimeout(function () {
                 alert('New calender created!\n\nBookmark this URL to edit it later on any device that has this URL.\n\nTap a day to toggle its colors.');
-            },10)
+            }, 10)
         });
     }
 
