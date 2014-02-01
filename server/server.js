@@ -2,6 +2,15 @@ var restify = require('restify');
 var server = restify.createServer();
 server.use(restify.bodyParser());
 
+// Setup CORS
+restify.CORS.ALLOW_HEADERS.push('accept');
+restify.CORS.ALLOW_HEADERS.push('sid');
+restify.CORS.ALLOW_HEADERS.push('lang');
+restify.CORS.ALLOW_HEADERS.push('origin');
+restify.CORS.ALLOW_HEADERS.push('withcredentials');
+restify.CORS.ALLOW_HEADERS.push('x-requested-with');
+server.use(restify.CORS());
+
 var config = require('./config');
 var mongoose = require('mongoose/');
 
@@ -113,7 +122,11 @@ function putDay(req, res, next) {
                     && validateDayValue(req.params.value)
                     ) {
 
-                    calender.days[req.params.dayId] = req.params.value;
+                    if (req.params.value > 0) {
+                        calender.days[req.params.dayId] = req.params.value;
+                    } else {
+                        delete calender.days[req.params.dayId];
+                    }
                     calender.markModified('days');
 
                     calender.save(function (err, calender) {
@@ -133,7 +146,7 @@ function putDay(req, res, next) {
 }
 
 function putDayTest(req, res, next) {
-    req.params.dayId = '2014-3-' + (Math.floor(Math.random() * 30) + 1);
+    req.params.dayId = '2014-1-' + (Math.floor(Math.random() * 30) + 1);
     req.params.value = Math.floor(Math.random() * 3);
     putDay(req, res, next);
 }
@@ -191,12 +204,12 @@ function validateDay(day) {
     var dayParts = day.split('-');
     return dayParts.length == 3
         && isFinite(dayParts[0]) && dayParts[0] >= 2000 && dayParts[0] <= 2100
-        && isFinite(dayParts[1]) && dayParts[1] >= 1 && dayParts[1] <= 12
+        && isFinite(dayParts[1]) && dayParts[1] >= 0 && dayParts[1] <= 12
         && isFinite(dayParts[2]) && dayParts[2] >= 1 && dayParts[2] <= 31;
 }
 
 function validateDayValue(value) {
-    return value >= 0 && value <= 2;
+    return value >= 0 && value <= 3;
 }
 
 function publicizeCalender(calender) {

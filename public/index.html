@@ -1,16 +1,58 @@
 <!doctype html>
-<html ng-app="calender">
+<html ng-app="calenderApp">
 <head>
     <title>Habit-Tracker</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <link rel="stylesheet" href="/bootstrap/bootstrap.css"/>
+
+    <script src="/angular/angular.min.js"></script>
+    <script src="/date.js"></script>
+    <script src="/angular-modules/ui-bootstrap.min.js"></script>
+    <script src="/CalenderCtrl.js"></script>
+    <style>
+        td {
+            width: 14%;
+            height: 7em;
+            border: 1px solid black;
+            text-align: right;
+            vertical-align: top;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .oddMonth {
+            background-color: #eeeeee;
+        }
+        .today {
+            border: 3px solid blue;
+            color: blue;
+        }
+        .severity1{
+            background-color:yellow;
+        }
+        .severity2{
+            background-color:orange;
+        }
+        .severity3{
+            background-color:red;
+        }
+    </style>
 </head>
 <body ng-controller="CalenderCtrl">
-hi
-<ul>
-    <li ng-repeat="day in days">
-        {{phone.name}}
-        <p>{{phone.snippet}}</p>
-    </li>
-</ul>
+<table>
+    <tr ng-repeat="week in weeks">
+        <td ng-repeat="day in week" ng-click="dayClick(day)" ng-class="{oddMonth: (day.month % 2 == 1),today:day.today,severity1: day.value==1,severity2: day.value==2,severity3: day.value==3}">
+            {{day.dayOfMonth}}
+        </td>
+    </tr>
+</table>
+
 </body>
 </html>
