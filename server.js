@@ -41,11 +41,6 @@ server.get('/api/calendars/:calenderId/days', getDays);
 server.get('/api/calendars/:calenderId/days/:dayId', getDay);
 server.put('/api/calendars/:calenderId/days/:dayId', putDay);
 
-
-// Test Routs
-server.get('/test/api/calendars', postCalender);
-server.get('/test/api/calendars/:calenderId/days/put', putDayTest);
-
 //Start server
 server.listen(process.env.PORT || 80, function () {
         console.log('%s listening at %s', server.name, server.url);
@@ -153,12 +148,6 @@ function putDay(req, res, next) {
             }
         }
     );
-}
-
-function putDayTest(req, res, next) {
-    req.params.dayId = '2014-1-' + (Math.floor(Math.random() * 30) + 1);
-    req.params.value = Math.floor(Math.random() * 3);
-    putDay(req, res, next);
 }
 
 function readCalender(calenderId, callback) {
