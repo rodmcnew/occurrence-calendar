@@ -12,7 +12,6 @@ module.exports.config = config;
 module.exports.server = server;
 module.exports.restify = restify;
 
-
 // Include route file
 routes = require('./routes');
 

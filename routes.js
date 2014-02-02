@@ -2,7 +2,7 @@
 server = module.parent.exports.server;
 restify = module.parent.exports.restify;
 
-// Static files
+// Static files (should be served through Amazon S3 instead of Node.JS but too lazy for that now)
 server.get('/', restify.serveStatic({
     directory: './public',
     default: 'index.html'
@@ -10,7 +10,6 @@ server.get('/', restify.serveStatic({
 server.get(/\/assets\/?.*/, restify.serveStatic({
     directory: './public/assets'
 }));
-
 
 // Api Routes for Calender
 var calendarController = require('./controllers/calendar');
