@@ -17,7 +17,6 @@ cryptoAlgo = process.env.CRYPTO_ALGO || config.crypto.algo;
 cryptoKey = process.env.CRYPTO_KEY || config.crypto.key;
 
 exports.read = function (calendarId, callback) {
-
     var calendarIdParts = calendarId.split('~');
     if (calendarIdParts.length != 2) {
         callback(false);
