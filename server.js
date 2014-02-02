@@ -1,20 +1,17 @@
+// Require dependencies
+var config = require('./config');
 var restify = require('restify');
+var mongoose = require('mongoose/');
+var crypto = require('crypto');
+var base64UrlCrypto = require('base64UrlCrypto');
+
+// Setup restify server
 var server = restify.createServer();
 server.use(restify.bodyParser());
-
-// Setup CORS
-restify.CORS.ALLOW_HEADERS.push('accept');
-restify.CORS.ALLOW_HEADERS.push('sid');
-restify.CORS.ALLOW_HEADERS.push('lang');
-restify.CORS.ALLOW_HEADERS.push('origin');
-restify.CORS.ALLOW_HEADERS.push('withcredentials');
-restify.CORS.ALLOW_HEADERS.push('x-requested-with');
 server.use(restify.CORS());
 
-var config = require('./config');
-var mongoose = require('mongoose/');
-
-var crypto = require('crypto');
+var cryptoAlgo = process.env.CRYPTO_ALGO || config.crypto.algo;
+var cryptoKey = process.env.CRYPTO_KEY || config.crypto.key;
 
 // Connect to mongo
 mongoose.connect(process.env.MONGOHQ_URL || config.db);
@@ -41,8 +38,8 @@ server.get('/api/calendars/:calenderId/days', getDays);
 server.get('/api/calendars/:calenderId/days/:dayId', getDay);
 server.put('/api/calendars/:calenderId/days/:dayId', putDay);
 
-//Start server
-server.listen(process.env.PORT || 80, function () {
+// Start server
+server.listen(process.env.PORT || 8080, function () {
         console.log('%s listening at %s', server.name, server.url);
     }
 );
@@ -54,8 +51,8 @@ function postCalender(req, res, next) {
         calender.save(function (err, calender) {
             if (!err) {
 
-                var encryptedId = Base64UrlCrypto.encrypt(calender._id.toString(), 'hex');
-                calender.id = encryptedId + '~' + randomSecret;
+                var encryptedMongoId = base64UrlCrypto.encrypt(calender._id.toString(), cryptoAlgo, cryptoKey, 'hex');
+                calender.id = encryptedMongoId + '~' + randomSecret;
 
                 calender.save(function (err) {
                     if (!err) {
@@ -88,11 +85,11 @@ function getCalender(req, res, next) {
 }
 
 function getDays(req, res, next) {
-    queryDays(
+    readCalender(
         req.params.calenderId,
-        function (days) {
-            if (days) {
-                res.send(days);
+        function (calender) {
+            if (calender) {
+                res.send(calender.days);
             } else {
                 res.send(404);
             }
@@ -158,8 +155,9 @@ function readCalender(calenderId, callback) {
         return;
     }
     try {
-        var mongoId = Base64UrlCrypto.decrypt(calenderIdParts[0], 'hex');
+        var mongoId = base64UrlCrypto.decrypt(calenderIdParts[0], cryptoAlgo, cryptoKey, 'hex');
     } catch (e) {
+        console.log(e);
         callback(false);
         return;
     }
@@ -177,24 +175,11 @@ function readCalender(calenderId, callback) {
     );
 }
 
-function queryDays(calenderId, callback) {
-    readCalender(
-        calenderId,
-        function (calender) {
-            if (calender) {
-                callback(calender.days);
-            } else {
-                callback(false);
-            }
-        }
-    )
-}
-
 function makeRandomSecret(callback) {
     crypto.randomBytes(
         config.randomSecretBytes,
         function (ex, buf) {
-            callback(Base64UrlCrypto.base64ToUrlBase64(buf.toString('base64')));
+            callback(base64UrlCrypto.base64ToUrlBase64(buf.toString('base64')));
         }
     );
 }
@@ -217,44 +202,3 @@ function publicizeCalender(calender) {
 function publicizeDay(dayId, value) {
     return {id: dayId, value: value};
 }
-
-/*********** BEGIN Base64UrlCrypto ***********/
-var Base64UrlCrypto = module.exports = exports;
-
-Base64UrlCrypto.encrypt = function (str, fromEncoding) {
-    // init cipher
-    var cipher = crypto.createCipher(config.crypto.algo, config.crypto.key);
-
-    // encrypt
-    var binary = cipher.update(str, fromEncoding, 'binary') + cipher.final('binary');
-
-    //convert from utf8 to binary
-    var base64 = new Buffer(binary, 'binary').toString('base64');
-
-    // replace chars not allowed in urls
-    return Base64UrlCrypto.base64ToUrlBase64(base64);
-};
-
-Base64UrlCrypto.decrypt = function (urlBase64Str, toEncoding) {
-    //init decipher
-    var decipher = crypto.createDecipher(config.crypto.algo, config.crypto.key);
-
-    // un-replace chars not allowed in urls
-    var base64 = Base64UrlCrypto.baseUrlBase64ToBase64(urlBase64Str);
-
-    // convert from base64 to binary
-    var binary = Buffer(base64, 'base64').toString('binary');
-
-    // decrypt
-    return decipher.update(binary, 'binary', toEncoding) + decipher.final(toEncoding);
-};
-
-Base64UrlCrypto.base64ToUrlBase64 = function (base64Str) {
-    return base64Str.replace(/\//g, '_').replace(/\+/g, '-').replace(/=+$/g, '');
-};
-
-Base64UrlCrypto.baseUrlBase64ToBase64 = function (urlBase64Str) {
-    return urlBase64Str.replace(/_/g, '/').replace(/-/g, '+');
-};
-
-/*********** END Base64UrlCrypto ***********/

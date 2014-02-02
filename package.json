@@ -7,7 +7,6 @@
     "dependencies": {
         "restify": "2.x",
         "mongoose": "3.x",
-        "crypto": "0.x",
-        "connect": "2.x"
+        "crypto": "0.x"
     }
 }

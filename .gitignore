@@ -1,4 +1,7 @@
 .idea
 .DS_Store
 config.js
-node_modules
+node_modules/.bin
+node_modules/crypto
+node_modules/mongoose
+node_modules/restify

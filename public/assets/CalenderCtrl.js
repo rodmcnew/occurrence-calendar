@@ -1,10 +1,9 @@
 var calenderApp = angular.module('calenderApp', []);
 
-var apiBase = '/api/calendars';
-
 calenderApp.controller('CalenderCtrl', function ($scope, $http, $location) {
-    $scope.weeks = [];
 
+    var apiBase = '/api/calendars';
+    $scope.weeks = [];
     $scope.habitDays = [];
 
 
@@ -27,7 +26,6 @@ calenderApp.controller('CalenderCtrl', function ($scope, $http, $location) {
     function getDayId(date) {
         return date.getUTCFullYear() + '-' + date.getUTCMonth() + '-' + date.getUTCDate();
     }
-
 
     function handleCalanderResonse(calendar) {
         $scope.habitDays = calendar.days;
@@ -54,7 +52,6 @@ calenderApp.controller('CalenderCtrl', function ($scope, $http, $location) {
             if (foundFirstSun) {
                 var month = day.getUTCMonth();
                 var dayOfMonth = day.getUTCDate();
-                var year = day.getUTCFullYear();
                 var dayId = getDayId(day);
 
                 var value = 0;
