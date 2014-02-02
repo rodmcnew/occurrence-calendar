@@ -1,15 +1,13 @@
 <!doctype html>
-<html ng-app="calenderApp">
+<html ng-app="calendarApp">
 <head>
     <title>Habit-Tracker</title>
-    <link rel="stylesheet" href="/assets/bootstrap.css"/>
+    <link rel="stylesheet" href="/assets/bootstrap.min.css"/>
     <link rel="stylesheet" href="/assets/style.css"/>
-
-    <script src="/assets/angular.min.js"></script>
-    <script src="/assets/date.js"></script>
-    <script src="/assets/CalenderCtrl.js"></script>
+    <script src="/assets/angular.min.js-and-date.min.js"></script>
+    <script src="/assets/CalendarCtrl.js"></script>
 </head>
-<body ng-controller="CalenderCtrl">
+<body ng-controller="CalendarCtrl">
 <table>
     <tr ng-repeat="week in weeks">
         <td ng-repeat="day in week" ng-click="dayClick(day)"

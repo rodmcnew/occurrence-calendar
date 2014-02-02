@@ -1,6 +1,6 @@
-var calenderApp = angular.module('calenderApp', []);
+var calendarApp = angular.module('calendarApp', []);
 
-calenderApp.controller('CalenderCtrl', function ($scope, $http, $location) {
+calendarApp.controller('CalendarCtrl', function ($scope, $http, $location) {
 
     var apiBase = '/api/calendars';
     $scope.weeks = [];
@@ -14,8 +14,8 @@ calenderApp.controller('CalenderCtrl', function ($scope, $http, $location) {
             $location.search('calendar', calendar.id);
             handleCalanderResonse(calendar);
             setTimeout(function () {
-                alert('New calender created!\n\nBookmark this URL to edit it later on any device that has this URL.\n\nTap a day to toggle its colors.');
-            }, 10)
+                alert('New calendar created!\n\nBookmark this URL to edit it later on any device that has this URL.\n\nTap a day to toggle its colors.');
+            }, 20)
         });
     }
 
@@ -32,7 +32,7 @@ calenderApp.controller('CalenderCtrl', function ($scope, $http, $location) {
         setupDays();
         setTimeout(function () {
             window.scrollTo(0, 99999);
-        }, 1);
+        }, 10);
     }
 
     function setupDays() {
