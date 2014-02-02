@@ -16,14 +16,11 @@ exports.get = function (req, res, next) {
         req.params.calendarId,
         function (calendar) {
             if (calendar) {
-                res.send(publicizeCalendar(calendar));
+                // Send only the public properties of the calendar
+                res.send({id: calendar.id, days: calendar.days});
             } else {
                 res.send(404);
             }
         }
     )
 };
-
-function publicizeCalendar(calendar) {
-    return {id: calendar.id, days: calendar.days};
-}
