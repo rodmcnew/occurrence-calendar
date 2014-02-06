@@ -25,12 +25,13 @@ table {
 .today {
     border: 5px solid #007FFF;
     color: #007FFF;
+    font-weight: bolder;
 }
 
 .severity1 {
-    background-color: #FFFF99;
+    background-color: #FFFF00;
 }
 
 .severity2 {
-    background-color: #FF3333;
+    background-color: #FF0000;
 }
