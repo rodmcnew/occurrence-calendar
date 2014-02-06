@@ -1,18 +1,17 @@
 td {
     width: 14%;
-    height: 1em;
+    height: 3em;
     border: 1px solid black;
     text-align: center;
-    vertical-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    font-size: 3em;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    cursor: pointer;
-    font-size: 3em;
-    padding: 1em;
 }
 
 table {
@@ -24,18 +23,14 @@ table {
 }
 
 .today {
-    border: 3px solid blue;
-    color: blue;
+    border: 5px solid #007FFF;
+    color: #007FFF;
 }
 
 .severity1 {
-    background-color: yellow;
+    background-color: #FFFF99;
 }
 
 .severity2 {
-    background-color: orange;
-}
-
-.severity3 {
-    background-color: red;
+    background-color: #FF3333;
 }

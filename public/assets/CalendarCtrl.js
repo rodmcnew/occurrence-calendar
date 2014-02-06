@@ -2,7 +2,9 @@ var calendarApp = angular.module('calendarApp', []);
 
 calendarApp.controller('CalendarCtrl', function ($scope, $http, $location) {
 
+    var months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
     var apiBase = '/api/calendars';
+
     $scope.weeks = [];
     $scope.habitDays = [];
 
@@ -50,7 +52,6 @@ calendarApp.controller('CalendarCtrl', function ($scope, $http, $location) {
                 $scope.weeks[week] = []
             }
             if (foundFirstSun) {
-                var month = day.getUTCMonth();
                 var dayOfMonth = day.getUTCDate();
                 var dayId = getDayId(day);
 
@@ -58,7 +59,21 @@ calendarApp.controller('CalendarCtrl', function ($scope, $http, $location) {
                 if ($scope.habitDays[dayId]) {
                     value = $scope.habitDays[dayId];
                 }
-                var newDay = {dayOfMonth: dayOfMonth, month: month, today: dayId == today, id: dayId, value: value};
+
+                var month = day.getUTCMonth();
+
+                var dayText = dayOfMonth;
+                if (dayOfMonth == 1) {
+                    dayText = months[month] + ' ' + dayOfMonth;
+                }
+
+                var newDay = {
+                    dayText: dayText,
+                    oddMonth: month % 2 == 1,
+                    today: dayId == today,
+                    id: dayId,
+                    value: value
+                };
                 $scope.weeks[week].push(newDay);
             }
             day.add({ days: +1 });
@@ -67,7 +82,7 @@ calendarApp.controller('CalendarCtrl', function ($scope, $http, $location) {
 
     $scope.dayClick = function (day) {
         day.value = day.value + 1;
-        if (day.value > 3) {
+        if (day.value > 2) {
             day.value = 0
         }
         $http.put(getApiUrl() + '/days/' + day.id, {value: day.value});

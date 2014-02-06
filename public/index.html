@@ -11,8 +11,8 @@
 <table>
     <tr ng-repeat="week in weeks">
         <td ng-repeat="day in week" ng-click="dayClick(day)"
-            ng-class="{oddMonth: (day.month % 2 == 1),today:day.today,severity1: day.value==1,severity2: day.value==2,severity3: day.value==3}">
-            {{day.dayOfMonth}}
+            ng-class="{oddMonth: day.oddMonth,today:day.today,severity1: day.value==1,severity2: day.value==2}">
+            {{day.dayText}}
         </td>
     </tr>
 </table>

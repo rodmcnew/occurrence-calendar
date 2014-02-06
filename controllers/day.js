@@ -72,7 +72,7 @@ function validateDay(day) {
 }
 
 function validateDayValue(value) {
-    return value >= 0 && value <= 3;
+    return value >= 0 && value <= 2;
 }
 
 function publicizeDay(dayId, value) {
