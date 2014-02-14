@@ -82,7 +82,7 @@ calendarApp.controller('CalendarCtrl', function ($scope, $http, $location) {
 
     $scope.dayClick = function (day) {
         day.value = day.value + 1;
-        if (day.value > 2) {
+        if (day.value > 3) {
             day.value = 0
         }
         $http.put(getApiUrl() + '/days/' + day.id, {value: day.value});

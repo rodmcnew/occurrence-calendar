@@ -23,15 +23,19 @@ table {
 }
 
 .today {
-    border: 5px solid #007FFF;
-    color: #007FFF;
+    border: 5px solid #007fff;
+    color: #007fff;
     font-weight: bolder;
 }
 
-.severity1 {
-    background-color: #FFFF00;
+.note {
+    background-color: #ffff00;
 }
 
-.severity2 {
-    background-color: #FF0000;
+.warn {
+    background-color: #ffa500;
+}
+
+.crit {
+    background-color: #ff0000;
 }
