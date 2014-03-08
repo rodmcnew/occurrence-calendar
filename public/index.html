@@ -1,7 +1,8 @@
 <!doctype html>
 <html ng-app="calendarApp">
 <head>
-    <title>Habit-Tracker</title>
+    <meta name="viewport" content="user-scalable=0;">
+    <title>Habit Track</title>
     <link rel="stylesheet" href="/assets/bootstrap.min.css"/>
     <script src="/assets/angular.min.js-and-date.min.js"></script>
     <style>
@@ -144,7 +145,7 @@
 <table>
     <tr ng-repeat="week in weeks">
         <td ng-repeat="day in week" ng-click="dayClick(day)"
-            ng-class="{oddMonth: day.oddMonth,today:day.today,note: day.value==1,warn: day.value==2,crit: day.value==3}">
+            ng-class="{oddMonth: day.oddMonth,today:day.today,note: day.value==3,warn: day.value==2,crit: day.value==1}">
             {{day.dayText}}
         </td>
     </tr>
