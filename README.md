@@ -1,1 +1,1 @@
-[See the demo here](http://habittrack.rodmcnew.com/)
+[See the demo here](http://fire-habit-tracker.herokuapp.com/)
