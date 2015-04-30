@@ -1,9 +1,9 @@
 {
-  "name": "habit-tracker",
-  "description": "Habit Tracker App",
-  "version": "0.0.1",
+  "name": "Occurrence Calender",
+  "description": "Occurrence Calender",
+  "version": "2.0.1",
   "private": true,
-  "main": "server.js",
+  "main": "app.js",
   "dependencies": {
     "express": "~4.12.3",
     "mongoose": "~4.0.2",
