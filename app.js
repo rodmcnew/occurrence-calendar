@@ -18,7 +18,7 @@ module.exports.express = express;
 routes = require('./routes');
 
 // Start app
-app.listen(process.env.PORT || 1340, function () {
+app.listen(process.env.PORT || 8080, function () {
         console.log('%s listening at %s', app.name, app.url);
     }
 );
