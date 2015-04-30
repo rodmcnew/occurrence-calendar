@@ -7,7 +7,7 @@ exports.list = function (req, res, next) {
             if (calendar) {
                 res.send(calendar.days);
             } else {
-                res.send(404);
+                res.sendStatus(404);
             }
         }
     );
@@ -25,7 +25,7 @@ exports.get = function (req, res, next) {
                 }
 
             } else {
-                res.send(404);
+                res.sendStatus(404);
             }
         }
     );
@@ -54,10 +54,10 @@ exports.put = function (req, res, next) {
                         res.send(publicizeDay(req.params.dayId, req.params.value));
                     });
                 } else {
-                    res.send(400);
+                    res.sendStatus(400);
                 }
             } else {
-                res.send(404);
+                res.sendStatus(404);
             }
         }
     );

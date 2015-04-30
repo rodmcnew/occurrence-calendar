@@ -1,12 +1,11 @@
 {
-    "name": "habit-tracker",
-    "description": "Habit Tracker App",
-    "version": "0.0.1",
-    "private": true,
-    "main": "server.js",
-    "dependencies": {
-        "restify": "2.x",
-        "mongoose": "3.x",
-        "crypto": "0.x"
-    }
+  "name": "habit-tracker",
+  "description": "Habit Tracker App",
+  "version": "0.0.1",
+  "private": true,
+  "main": "server.js",
+  "dependencies": {
+    "express": "~4.12.3",
+    "mongoose": "~4.0.2"
+  }
 }

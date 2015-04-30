@@ -2,7 +2,7 @@ config = require('../config');
 
 mongoose = require('mongoose/');
 crypto = require('crypto');
-base64UrlCrypto = require('base64UrlCrypto');
+base64UrlCrypto = require('../bundled_modules/base64UrlCrypto');
 
 // Connect to mongo
 mongoose.connect(process.env.MONGOHQ_URL || config.db);
