@@ -13,7 +13,6 @@ module.exports.config = config;
 module.exports.app = app;
 module.exports.express = express;
 
-
 // Include route file
 routes = require('./routes');
 
