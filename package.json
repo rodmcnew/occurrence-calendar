@@ -6,6 +6,7 @@
   "main": "server.js",
   "dependencies": {
     "express": "~4.12.3",
-    "mongoose": "~4.0.2"
+    "mongoose": "~4.0.2",
+    "body-parser": "~1.12.3"
   }
 }

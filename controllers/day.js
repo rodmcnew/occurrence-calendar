@@ -36,12 +36,13 @@ exports.put = function (req, res, next) {
         req.params.calendarId,
         function (calendar) {
             if (calendar) {
+                console.log(req.body);
                 if (validateDay(req.params.dayId)
-                    && validateDayValue(req.params.value)
+                    && validateDayValue(req.body.value)
                     ) {
 
-                    if (req.params.value > 0) {
-                        calendar.days[req.params.dayId] = req.params.value;
+                    if (req.body.value > 0) {
+                        calendar.days[req.params.dayId] = req.body.value;
                     } else {
                         delete calendar.days[req.params.dayId];
                     }
@@ -51,7 +52,7 @@ exports.put = function (req, res, next) {
                         if (err) {
                             console.error(err);
                         }
-                        res.send(publicizeDay(req.params.dayId, req.params.value));
+                        res.send(publicizeDay(req.params.dayId, req.body.value));
                     });
                 } else {
                     res.sendStatus(400);
@@ -72,7 +73,7 @@ function validateDay(day) {
 }
 
 function validateDayValue(value) {
-    return value >= 0 && value <= 3;
+    return value >= 0 && value <= 1;
 }
 
 function publicizeDay(dayId, value) {
