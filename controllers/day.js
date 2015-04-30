@@ -36,7 +36,6 @@ exports.put = function (req, res, next) {
         req.params.calendarId,
         function (calendar) {
             if (calendar) {
-                console.log(req.body);
                 if (validateDay(req.params.dayId)
                     && validateDayValue(req.body.value)
                     ) {
