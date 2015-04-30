@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(express.static('public'));
 app.use(bodyParser.json());
-//app.use(express.CORS());
 
 // Include of sub-module dependencies
 module.exports.config = config;
