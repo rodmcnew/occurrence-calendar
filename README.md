@@ -1,4 +1,4 @@
-I wrote this to practice developing web applications with the MEAN stack (MongoDB, Express.js, AngularJS, Node.js)
+Occurrence Calender is a Node.js and AngularJS app for tracking when things occur. I wrote this to practice developing web applications with the MEAN stack (MongoDB, Express.js, AngularJS, Node.js)
 
-#Demo
-[http://occurrence-calender.rodmcnew.com](http://occurrence-calender.rodmcnew.com/) This demo may take 60 seconds to load the first time because it is on a free heroku instance that "falls asleep" when there is no activity.
+#Try The Demo
+[http://node.rodmcnew.com](http://node.rodmcnew.com/)
