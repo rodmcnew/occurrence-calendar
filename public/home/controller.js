@@ -36,7 +36,7 @@ calendarApp.controller('HomeCtrl', function ($scope, $http, $location) {
 
     function setupDays() {
         var today = getDayId(Date.today());
-        var day = Date.today().add({ days: -96 });
+        var day = Date.today().add({ days: -365 });
         var end = Date.today().add({ days: +7 });
         var foundFirstSun = false;
         var week = 0;

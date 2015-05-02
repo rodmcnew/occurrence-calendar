@@ -9,39 +9,51 @@
     <script type="text/javascript" src="controller.js"></script>
 </head>
 <body>
+<div class="container-fluid main">
+    <div class="row">
+        <h2 class="col-sm-12">How do you want to access your calendar?</h2>
 
-
-<div class="container">
-    <h1 class="col-sm-12">How do you want to access your calendar?<br><br></h1>
-    <a href="/login/facebook" class="col-sm-5">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Login with Facebook</h3>
-            </div>
-            <div class="panel-body">
-                Occurrence Calendar doesn't post to your Facebook or collect information from your profile.
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Login with Facebook</h3>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        Occurrence Calendar does not post to your Facebook or
+                        collect
+                        information from your profile.
+                    </div>
+                    <a href="/login/facebook" class="btn btn-primary">
+                        Login with Facebook
+                    </a>
+                </div>
             </div>
         </div>
-    </a>
-
-    <div class="col-sm-2" style="text-align: center">
-        <h1>OR</h1>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Bookmark a Secret URL</h3>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        Any device or person with the URL can view and edit the
+                        calendar. A good option if you don't want to use
+                        Facebook.
+                    </div>
+                    <a href="/shared-calendars" class="btn btn-primary">
+                        Create New Secret URL Calendar
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            Occurrence Calendar is an
+            <a href="https://github.com/rodmcnew/occurrence-calender">open
+                source</a>
+            project.
+        </div>
     </div>
-    <a href="/shared-calendars" class="col-sm-5">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Create a Calendar with a Secret
-                    URL</h3>
-            </div>
-            <div class="panel-body">
-                You can bookmark the calendar
-                on any number of devices to manage your calendar. You can
-                also
-                share the URL with other people to allow them to manage your
-                calendar.
-            </div>
-        </div>
-    </a>
 </div>
 </body>
 </html>

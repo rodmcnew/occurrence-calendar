@@ -1,5 +1,3 @@
-// Get restify app from parent module
-
 module.exports = function (app) {
 
     // Api Routes for Calender
@@ -13,9 +11,7 @@ module.exports = function (app) {
     app.put('/api/shared-calendars/:shareKey/:dayId', day.putShared);
     app.put('/api/calendars/:id/:dayId', day.put);
 
+    // Api routes for info about the current user
     var user = App.route('user');
     app.get('/api/user', user.getCurrent);
-
-    var sessionRoutes = App.route('sessionRoutes');
-    app.get('/sign_out', sessionRoutes.destroy);
 };

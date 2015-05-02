@@ -29,9 +29,18 @@ table {
 }
 
 .occurrence {
-    background-color: yellow;
+    background-color: #f0ad4e;
 }
 
-a:hover{
-    text-decoration: none;
+.main .btn {
+    float: right;
+    margin-top: 3em;
+}
+
+.main {
+    max-width: 700px;
+}
+
+.main h2{
+    text-align: center;
 }
