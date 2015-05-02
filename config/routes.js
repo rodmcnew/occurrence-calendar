@@ -1,6 +1,6 @@
 module.exports = function (app) {
 
-    // Api Routes for Calender
+    // Api Routes for Calendar
     var calendar = App.route('calendar');
     app.get('/api/calendars/:id', calendar.get);
     app.get('/api/shared-calendars/:shareKey', calendar.getShared);

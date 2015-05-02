@@ -1,6 +1,6 @@
 {
-  "name": "occurrence-calender",
-  "description": "Occurrence Calender",
+  "name": "occurrence-calendar",
+  "description": "Occurrence Calendar",
   "version": "2.0.1",
   "private": true,
   "main": "app.js",
