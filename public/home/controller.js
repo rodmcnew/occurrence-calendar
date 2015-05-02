@@ -8,15 +8,16 @@ calendarApp.controller('HomeCtrl', function ($scope, $http, $location) {
     $scope.weeks = [];
     $scope.habitDays = [];
 
-    $http.get('/api/user').success(function(data){
-        $scope.calendars=data.calendars;
-        $scope.calendarId=$scope.calendars[0].id;
-        $location.search('calendar', $scope.calendarId);
-        $http.get(getApiUrl()).success(handleCalanderResonse);
-    });
-
-    if ($location.search().calendar) {
+    function authError() {
+        window.location.replace('/login/facebook');
     }
+
+    $http.get('/api/user').success(function (data) {
+        $scope.calendars = data.calendars;
+        $scope.calendarId = $scope.calendars[0].id;
+        $location.search('calendar', $scope.calendarId);
+        $http.get(getApiUrl()).success(handleCalanderResonse).error(authError);
+    }).error(authError);
 
     function getApiUrl() {
         return apiBase + '/' + $location.search().calendar
@@ -83,6 +84,6 @@ calendarApp.controller('HomeCtrl', function ($scope, $http, $location) {
         } else {
             day.value = 1;
         }
-        $http.put(getApiUrl() + '/' + day.id, {value: day.value});
+        $http.put(getApiUrl() + '/' + day.id, {value: day.value}).error(authError);
     };
 });
