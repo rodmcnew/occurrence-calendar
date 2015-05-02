@@ -28,12 +28,17 @@ global.App = {
     }
 };
 
+//@TODO remove this hack that was added because couldn't get heroku ENV working
+if(process.env.MONGOHQ_URL){
+    App.env='production';
+}
+
 var secretConfig = App.require('config/secretConfig');
 var app = App.app;
 
-app.set('views', App.appPath('views'));
-app.set('view engine', 'jade');
-app.set('view options', {pretty: App.env === 'development'});
+//app.set('views', App.appPath('views'));
+//app.set('view engine', 'jade');
+//app.set('view options', {pretty: App.env === 'development'});
 
 app.use(express.static(App.appPath('public')));
 app.use(bodyParser.json());
