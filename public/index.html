@@ -6,16 +6,42 @@
     <link rel="stylesheet" href="/assets/bootstrap.min.css"/>
     <link rel="stylesheet" href="/style.css"/>
     <script src="/assets/angular.min.js-and-date.min.js"></script>
-    <script type="text/javascript" src="/controller.js"></script>
+    <script type="text/javascript" src="controller.js"></script>
 </head>
-<body ng-controller="CalendarCtrl">
-<table>
-    <tr ng-repeat="week in weeks">
-        <td ng-repeat="day in week" ng-click="dayClick(day)"
-            ng-class="{oddMonth: day.oddMonth,today:day.today,occurrence: day.value==1}">
-            {{day.dayText}}
-        </td>
-    </tr>
-</table>
+<body>
+
+
+<div class="container">
+    <h1 class="col-sm-12">How do you want to access your calendar?<br><br></h1>
+    <a href="/login/facebook" class="col-sm-5">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Login with Facebook</h3>
+            </div>
+            <div class="panel-body">
+                Occurrence Calendar doesn't post to your Facebook or collect information from your profile.
+            </div>
+        </div>
+    </a>
+
+    <div class="col-sm-2" style="text-align: center">
+        <h1>OR</h1>
+    </div>
+    <a href="/shared-calendars" class="col-sm-5">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Create a Calendar with a Secret
+                    URL</h3>
+            </div>
+            <div class="panel-body">
+                You can bookmark the calendar
+                on any number of devices to manage your calendar. You can
+                also
+                share the URL with other people to allow them to manage your
+                calendar.
+            </div>
+        </div>
+    </a>
+</div>
 </body>
 </html>

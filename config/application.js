@@ -1,6 +1,6 @@
 var path = require('path'),
     express = require('express'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser')
 
 global.App = {
     app: express(),
@@ -28,16 +28,17 @@ global.App = {
     }
 };
 
+var secretConfig = App.require('config/secretConfig');
+var app = App.app;
 
-App.app.set('views', App.appPath('views'));
-App.app.set('view engine', 'jade');
-App.app.set('view options', {pretty: App.env === 'development'});
+app.set('views', App.appPath('views'));
+app.set('view engine', 'jade');
+app.set('view options', {pretty: App.env === 'development'});
 
-App.app.use(express.static(App.appPath('public')));
-App.app.use(bodyParser.json());
-App.app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(express.static(App.appPath('public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 App.require('config/database')(process.env.MONGOHQ_URL || 'mongodb://localhost/test');
+App.require('initializers/passport.js')(app, secretConfig.facebook, secretConfig.sessionCookieSecret);
 
-App.require('config/routes')(App.app);
-//App.require('initializers/passport.js')();
+App.require('config/routes')(app);

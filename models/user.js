@@ -1,12 +1,18 @@
 var mongoose = require('mongoose');
 
-//@TODO VALIDATE THAT EMAIL IS EMAIL
-
 var schema = mongoose.Schema({
-    email: {type: String, required: true, unique: true},
-    password: {type: String, required: true, unique: true}
+    facebookId: {type: String, required: true, unique: true},
+    calendars: Array
 });
+schema.methods.ownsCalendar = function (calenderId) {
+    for (var i = 0; i < this.calendars.length; ++i) {
+        if (calenderId == this.calendars[i].id) {
+            return true;
+        }
+    }
+    return false;
+};
 
-var Model = calendar = mongoose.model('User', schema);
+var Model = mongoose.model('User', schema);
 
 module.exports = Model;

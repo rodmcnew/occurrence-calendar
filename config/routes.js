@@ -4,18 +4,18 @@ module.exports = function (app) {
 
     // Api Routes for Calender
     var calendar = App.route('calendar');
-    app.post('/api/calendars', calendar.post);
-    app.get('/api/calendars/:calendarId', calendar.get);
+    app.get('/api/calendars/:id', calendar.get);
+    app.get('/api/shared-calendars/:shareKey', calendar.getShared);
+    app.post('/api/shared-calendars', calendar.postShared);
 
     // Api Routes for Day
     var day = App.route('day');
-    app.get('/api/calendars/:calendarId/days', day.list);
-    app.get('/api/calendars/:calendarId/days/:dayId', day.get);
-    app.put('/api/calendars/:calendarId/days/:dayId', day.put);
+//    app.get('/api/shared-calendars/:shareKey/days/:dayId', day.getShared);
+    app.put('/api/shared-calendars/:shareKey/days/:dayId', day.putShared);
+    app.put('/api/calendars/:id/days/:dayId', day.put);
 
     var user = App.route('user');
-    app.get('/user/create', user.form);
-    app.post('/user/create', user.create);
+    app.get('/api/user', user.getCurrent);
 
     var sessionRoutes = App.route('sessionRoutes');
     app.get('/sign_out', sessionRoutes.destroy);

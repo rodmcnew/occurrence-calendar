@@ -3,7 +3,7 @@ var calendarApp = angular.module('calendarApp', []);
 calendarApp.controller('CalendarCtrl', function ($scope, $http, $location) {
 
     var months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
-    var apiBase = '/api/calendars';
+    var apiBase = '/api/shared-calendars';
 
     $scope.weeks = [];
     $scope.habitDays = [];
@@ -13,7 +13,7 @@ calendarApp.controller('CalendarCtrl', function ($scope, $http, $location) {
         $http.get(getApiUrl()).success(handleCalanderResonse);
     } else {
         $http.post(apiBase).success(function (calendar) {
-            $location.search('calendar', calendar.id);
+            $location.search('calendar', calendar.shareUrl);
             handleCalanderResonse(calendar);
             setTimeout(function () {
                 alert('New calendar created!\n\nBookmark this URL to edit it later on any device that has this URL.\n\nTap a day to toggle its status. Changes are saved immediately.');

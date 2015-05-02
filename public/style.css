@@ -31,3 +31,7 @@ table {
 .occurrence {
     background-color: yellow;
 }
+
+a:hover{
+    text-decoration: none;
+}

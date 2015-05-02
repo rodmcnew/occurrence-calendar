@@ -1,16 +1,12 @@
-exports.form = function (req, res) {
-    res.render('user/create');
-};
+//exports.form = function (req, res) {
+//    res.render('user/create');
+//};
 
 var User = App.model('user');
 
-exports.create = function (req, res) {
-    var user = new User({email:req.body.email,password:req.body.password});
-    user.save(function(err){
-        if(err){
-            res.status(422).render('user/create'); //@TODO show error
-        }else{
-            res.status(200).send('account created');
-        }
-    })
+exports.getCurrent = function (req, res) {
+    if(!req.isAuthenticated()){
+        res.send(401);
+    }
+    res.send({calendars:req.user.calendars});
 };

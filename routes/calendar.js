@@ -1,23 +1,40 @@
 calendarRepo = App.require('repos/calendarRepo');
 
-exports.post = function (req, res, next) {
-   calendarRepo.create(function (calenderId) {
-        if (calenderId) {
-            res.header('Location', '/api/calendars/' + calenderId);
-            res.sendStatus(302);
+exports.postShared = function (req, res) {
+   calendarRepo.createShared(function (calendar) {
+        if (calendar) {
+            res.send(calendar.toRest());
         } else {
             res.sendStatus(500);
         }
     });
 };
 
-exports.get = function (req, res, next) {
-    calendarRepo.read(
-        req.params.calendarId,
+exports.getShared = function (req, res) {
+    calendarRepo.readShared(
+        req.params.shareKey,
         function (calendar) {
             if (calendar) {
                 // Send only the public properties of the calendar
-                res.send({id: calendar.id, days: calendar.days});
+                res.send(calendar.toRest());
+            } else {
+                res.sendStatus(404);
+            }
+        }
+    )
+};
+
+exports.get = function (req, res) {
+    if(!req.isAuthenticated() || !req.user.ownsCalendar(req.params.id)){
+        res.sendStatus(401);
+        return;
+    }
+    calendarRepo.get(
+        req.params.id,
+        function (calendar) {
+            if (calendar) {
+                // Send only the public properties of the calendar
+                res.send(calendar.toRest());
             } else {
                 res.sendStatus(404);
             }

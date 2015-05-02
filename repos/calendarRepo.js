@@ -1,28 +1,21 @@
 crypto = require('crypto');
-base64UrlCrypto = require('../bundled_modules/base64UrlCrypto');
-
-cryptoAlgo = process.env.CRYPTO_ALGO || 'aes-256-cbc';
-cryptoKey = process.env.CRYPTO_KEY || 'fun-password-here';
 
 var Calendar = App.model('calendar');
 
-exports.read = function (calendarId, callback) {
-    var calendarIdParts = calendarId.split('~');
-    if (calendarIdParts.length != 2) {
-        callback(false);
-        return;
-    }
-    try {
-        var mongoId = base64UrlCrypto.decrypt(calendarIdParts[0], cryptoAlgo, cryptoKey, 'hex');
-    } catch (e) {
+exports.readShared = function (shareUrl, callback) {
+    var urlParts = shareUrl.split('.');
+    if (urlParts.length != 2) {
         callback(false);
         return;
     }
 
-    Calendar.findById(
-        mongoId,
+    Calendar.findOne(
+        {
+            _id: urlParts[0],
+            shareKey: urlParts[1]
+        },
         function (err, calendar) {
-            if (!err && calendar && calendar.id == calendarId) {
+            if (!err) {
                 callback(calendar);
             } else {
                 callback(false);
@@ -31,36 +24,50 @@ exports.read = function (calendarId, callback) {
     );
 };
 
-exports.create = function (callback) {
-    makeRandomSecret(function (randomSecret) {
-        var calendar = new Calendar({days: {'0-0-0': 0}});
+exports.get = function (id, callback) {
+    Calendar.findOne(
+        {
+            _id: id
+        },
+        function (err, calendar) {
+            if (!err) {
+                callback(calendar);
+            } else {
+                callback(false);
+            }
+        }
+    );
+};
+
+exports.createShared = function (callback) {
+    makeShareKey(function (shareKey) {
+        var calendar = new Calendar({shareKey: shareKey});
         calendar.save(function (err, calendar) {
             if (!err) {
-
-                var encryptedMongoId = base64UrlCrypto.encrypt(calendar._id.toString(), cryptoAlgo, cryptoKey, 'hex');
-                calendar.id = encryptedMongoId + '~' + randomSecret;
-
-                calendar.save(function (err) {
-                    if (!err) {
-                        callback(calendar.id)
-                    } else {
-                        console.error(err);
-                        callback(false);
-                    }
-                });
+                callback(calendar)
             } else {
-                console.error(err);
                 callback(false);
             }
         });
     });
 };
 
-function makeRandomSecret(callback) {
+exports.create = function (callback) {
+    var calendar = new Calendar();
+    calendar.save(function (err, calendar) {
+        if (!err) {
+            callback(calendar)
+        } else {
+            callback(false);
+        }
+    });
+};
+
+function makeShareKey(callback) {
     crypto.randomBytes(
         256 / 8,
         function (ex, buf) {
-            callback(base64UrlCrypto.base64ToUrlBase64(buf.toString('base64')));
+            callback(buf.toString('base64').replace(/\//g, '_').replace(/\+/g, '-').replace(/=+$/g, ''));
         }
     );
 }

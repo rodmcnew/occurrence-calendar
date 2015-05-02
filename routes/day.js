@@ -1,29 +1,50 @@
 calendarRepo = require('../repos/calendarRepo');
 
-exports.list = function (req, res, next) {
-    calendarRepo.read(
-        req.params.calendarId,
+//exports.getShared = function (req, res, next) {
+//    calendarRepo.readShared(
+//        req.params.shareKey,
+//        function (calendar) {
+//            calendar.ensureHasDays();
+//            if (calendar && validateDay(req.params.dayId)) {
+//                if (calendar.days[req.params.dayId]) {
+//                    res.send(publicizeDay(req.params.dayId, calendar.days[req.params.dayId]))
+//                } else {
+//                    res.send(publicizeDay(req.params.dayId, 0));
+//                }
+//
+//            } else {
+//                res.sendStatus(404);
+//            }
+//        }
+//    );
+//};
+
+exports.putShared = function (req, res, next) {
+    calendarRepo.readShared(
+        req.params.shareKey,
         function (calendar) {
+            calendar.ensureHasDays();
             if (calendar) {
-                res.send(calendar.days);
-            } else {
-                res.sendStatus(404);
-            }
-        }
-    );
-};
+                if (validateDay(req.params.dayId)
+                    && validateDayValue(req.body.value)
+                    ) {
 
-exports.get = function (req, res, next) {
-    calendarRepo.read(
-        req.params.calendarId,
-        function (calendar) {
-            if (calendar && validateDay(req.params.dayId)) {
-                if (calendar.days[req.params.dayId]) {
-                    res.send(publicizeDay(req.params.dayId, calendar.days[req.params.dayId]))
+                    if (req.body.value > 0) {
+                        calendar.days[req.params.dayId] = req.body.value;
+                    } else {
+                        delete calendar.days[req.params.dayId];
+                    }
+                    calendar.markModified('days');
+
+                    calendar.save(function (err, calendar) {
+                        if (err) {
+                            console.error(err);
+                        }
+                        res.send(publicizeDay(req.params.dayId, req.body.value));
+                    });
                 } else {
-                    res.send(publicizeDay(req.params.dayId, 0));
+                    res.sendStatus(400);
                 }
-
             } else {
                 res.sendStatus(404);
             }
@@ -31,10 +52,21 @@ exports.get = function (req, res, next) {
     );
 };
 
+/**
+ * @ TODO BREAK OUT INSIDE CODE AND SHARE WITH OTHER GET METHOD
+ * @param req
+ * @param res
+ * @param next
+ */
 exports.put = function (req, res, next) {
-    calendarRepo.read(
-        req.params.calendarId,
+    if(!req.isAuthenticated() || !req.user.ownsCalendar(req.params.id)){
+        res.sendStatus(401);
+        return;
+    }
+    calendarRepo.get(
+        req.params.id,
         function (calendar) {
+            calendar.ensureHasDays();
             if (calendar) {
                 if (validateDay(req.params.dayId)
                     && validateDayValue(req.body.value)
