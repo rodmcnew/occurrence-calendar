@@ -34,9 +34,7 @@ exports.read = function (calendarId, callback) {
 exports.create = function (callback) {
     makeRandomSecret(function (randomSecret) {
         var calendar = new Calendar({days: {'0-0-0': 0}});
-        console.log('saving', calendar);
         calendar.save(function (err, calendar) {
-            console.log('save cb called');
             if (!err) {
 
                 var encryptedMongoId = base64UrlCrypto.encrypt(calendar._id.toString(), cryptoAlgo, cryptoKey, 'hex');

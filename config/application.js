@@ -20,17 +20,22 @@ global.App = {
             }
         );
     },
-    route:function(path){
-        return this.require('routes/'+path);
+    route: function (path) {
+        return this.require('routes/' + path);
     },
-    model:function(path){
-        return this.require('models/'+path);
+    model: function (path) {
+        return this.require('models/' + path);
     }
 };
 
 
+App.app.set('views', App.appPath('views'));
+App.app.set('view engine', 'jade');
+App.app.set('view options', {pretty: App.env === 'development'});
+
 App.app.use(express.static(App.appPath('public')));
 App.app.use(bodyParser.json());
+App.app.use(bodyParser.urlencoded({extended: true}));
 
 App.require('config/database')(process.env.MONGOHQ_URL || 'mongodb://localhost/test');
 

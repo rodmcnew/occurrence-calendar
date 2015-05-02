@@ -1,0 +1,10 @@
+extends ../layouts/home
+
+block content
+    h1 Create Account
+    form(method="post")
+        label email
+            input(type="text",name="email")
+        label password
+            input(type="password",name="password")
+        input(type="submit")
