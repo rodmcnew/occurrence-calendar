@@ -8,7 +8,7 @@ exports.create = function (req, res) {
     var user = new User({email:req.body.email,password:req.body.password});
     user.save(function(err){
         if(err){
-            res.status(422).send('invalid'); //@TODO handle this
+            res.status(422).render('user/create'); //@TODO show error
         }else{
             res.status(200).send('account created');
         }
