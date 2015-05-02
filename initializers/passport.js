@@ -70,7 +70,7 @@ module.exports = function (app, fbConfig, sessionCookieSecret) {
 // handle the callback after facebook has authenticated the user
     app.get('/login/facebook/callback',
         passport.authenticate('facebook', {
-            successRedirect: '/home',
+            successRedirect: '/private-calendars/',
             failureRedirect: '/'
         })
     );
