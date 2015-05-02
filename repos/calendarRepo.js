@@ -1,20 +1,11 @@
-config = require('../config');
-
-mongoose = require('mongoose/');
+var config=App.require('config');
 crypto = require('crypto');
 base64UrlCrypto = require('../bundled_modules/base64UrlCrypto');
 
-// Connect to mongo
-mongoose.connect(process.env.MONGOHQ_URL || config.db);
-
-// Create mongoose schema/model
-Schema = mongoose.Schema;
-Calendar = mongoose.model(
-    'Calendar', new Schema({id: String, days: Schema.Types.Mixed})
-);
-
 cryptoAlgo = process.env.CRYPTO_ALGO || config.crypto.algo;
 cryptoKey = process.env.CRYPTO_KEY || config.crypto.key;
+
+var Calendar = App.model('calendar');
 
 exports.read = function (calendarId, callback) {
     var calendarIdParts = calendarId.split('~');
@@ -43,9 +34,10 @@ exports.read = function (calendarId, callback) {
 
 exports.create = function (callback) {
     makeRandomSecret(function (randomSecret) {
-        var calendar = new Calendar();
-        calendar.days = {'0-0-0': 0};
+        var calendar = new Calendar({days: {'0-0-0': 0}});
+        console.log('saving', calendar);
         calendar.save(function (err, calendar) {
+            console.log('save cb called');
             if (!err) {
 
                 var encryptedMongoId = base64UrlCrypto.encrypt(calendar._id.toString(), cryptoAlgo, cryptoKey, 'hex');

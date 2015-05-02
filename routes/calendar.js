@@ -1,7 +1,7 @@
-calendarRepo = require('../repos/calendarRepo');
+calendarRepo = App.require('repos/calendarRepo');
 
 exports.post = function (req, res, next) {
-    calendarRepo.create(function (calenderId) {
+   calendarRepo.create(function (calenderId) {
         if (calenderId) {
             res.header('Location', '/api/calendars/' + calenderId);
             res.sendStatus(302);
