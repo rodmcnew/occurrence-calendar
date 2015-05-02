@@ -10,9 +10,8 @@ module.exports = function (app) {
 
     // Api Routes for Day
     var day = App.route('day');
-//    app.get('/api/shared-calendars/:shareKey/days/:dayId', day.getShared);
-    app.put('/api/shared-calendars/:shareKey/days/:dayId', day.putShared);
-    app.put('/api/calendars/:id/days/:dayId', day.put);
+    app.put('/api/shared-calendars/:shareKey/:dayId', day.putShared);
+    app.put('/api/calendars/:id/:dayId', day.put);
 
     var user = App.route('user');
     app.get('/api/user', user.getCurrent);

@@ -1,24 +1,5 @@
 calendarRepo = require('../repos/calendarRepo');
 
-//exports.getShared = function (req, res, next) {
-//    calendarRepo.readShared(
-//        req.params.shareKey,
-//        function (calendar) {
-//            calendar.ensureHasDays();
-//            if (calendar && validateDay(req.params.dayId)) {
-//                if (calendar.days[req.params.dayId]) {
-//                    res.send(publicizeDay(req.params.dayId, calendar.days[req.params.dayId]))
-//                } else {
-//                    res.send(publicizeDay(req.params.dayId, 0));
-//                }
-//
-//            } else {
-//                res.sendStatus(404);
-//            }
-//        }
-//    );
-//};
-
 exports.putShared = function (req, res, next) {
     calendarRepo.readShared(
         req.params.shareKey,

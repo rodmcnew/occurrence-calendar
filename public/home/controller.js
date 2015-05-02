@@ -17,14 +17,6 @@ calendarApp.controller('HomeCtrl', function ($scope, $http, $location) {
 
     if ($location.search().calendar) {
     }
-//    else {
-//        $http.post(apiBase).success(function (calendar) {
-//            handleCalanderResonse(calendar);
-//            setTimeout(function () {
-//                alert('New calendar created!\n\nBookmark this URL to edit it later on any device that has this URL.\n\nTap a day to toggle its status. Changes are saved immediately.');
-//            }, 20)
-//        });
-//    }
 
     function getApiUrl() {
         return apiBase + '/' + $location.search().calendar
@@ -91,6 +83,6 @@ calendarApp.controller('HomeCtrl', function ($scope, $http, $location) {
         } else {
             day.value = 1;
         }
-        $http.put(getApiUrl() + '/days/' + day.id, {value: day.value});
+        $http.put(getApiUrl() + '/' + day.id, {value: day.value});
     };
 });

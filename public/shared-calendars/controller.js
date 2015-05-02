@@ -86,6 +86,6 @@ calendarApp.controller('CalendarCtrl', function ($scope, $http, $location) {
         } else {
             day.value = 1;
         }
-        $http.put(getApiUrl() + '/days/' + day.id, {value: day.value});
+        $http.put(getApiUrl() + '/' + day.id, {value: day.value});
     };
 });
