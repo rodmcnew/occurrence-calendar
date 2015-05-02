@@ -9,6 +9,7 @@ Occurrence Calendar is built with:
 * Mongoose
 * Passport
 * AngularJS
+* Bootstrap
 * MongoDB
 
 
