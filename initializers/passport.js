@@ -30,9 +30,7 @@ module.exports = function (app, fbConfig, sessionCookieSecret) {
                             // if there is no user found with that facebook id, create them
                             var newUser = new User({
                                 facebookId: profile.id,
-                                calendars: [
-                                    {id: calendar._id, name: 'First Calendar'}
-                                ]
+                                calendars: [{id:calendar._id,name:'First Calendar'}]
                             });
 
                             // save our user to the database
@@ -55,6 +53,7 @@ module.exports = function (app, fbConfig, sessionCookieSecret) {
     });
     passport.deserializeUser(function (id, done) {
         User.findOne({facebookId: id}, function (err, user) {
+            console.log('deserialize', err, user);
             done(err, user);
         })
     });
