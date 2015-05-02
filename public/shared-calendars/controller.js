@@ -16,7 +16,7 @@ calendarApp.controller('CalendarCtrl', function ($scope, $http, $location) {
             $location.search('calendar', calendar.shareUrl);
             handleCalanderResonse(calendar);
             setTimeout(function () {
-                alert('New calendar created!\n\nBookmark this URL to edit it later on any device that has this URL.\n\nTap a day to toggle its status. Changes are saved immediately.');
+                alert('New calendar created!\n\nBookmark this page to access your calendar later.\n\nTap a day to toggle its status. Changes are saved immediately.');
             }, 20)
         });
     }
