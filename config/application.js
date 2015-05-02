@@ -32,7 +32,7 @@ global.App = {
 App.app.use(express.static(App.appPath('public')));
 App.app.use(bodyParser.json());
 
-App.require('config/database')(process.env.MONGOHQ_URL || 'mongodb://localhost/habit-tracker');
+App.require('config/database')(process.env.MONGOHQ_URL || 'mongodb://localhost/test');
 
 App.require('config/routes')(App.app);
 //App.require('initializers/passport.js')();

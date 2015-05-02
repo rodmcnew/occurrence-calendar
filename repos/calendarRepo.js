@@ -1,9 +1,8 @@
-var config=App.require('config');
 crypto = require('crypto');
 base64UrlCrypto = require('../bundled_modules/base64UrlCrypto');
 
-cryptoAlgo = process.env.CRYPTO_ALGO || config.crypto.algo;
-cryptoKey = process.env.CRYPTO_KEY || config.crypto.key;
+cryptoAlgo = process.env.CRYPTO_ALGO || 'aes-256-cbc';
+cryptoKey = process.env.CRYPTO_KEY || 'fun-password-here';
 
 var Calendar = App.model('calendar');
 
@@ -61,7 +60,7 @@ exports.create = function (callback) {
 
 function makeRandomSecret(callback) {
     crypto.randomBytes(
-        config.randomSecretBytes,
+        256 / 8,
         function (ex, buf) {
             callback(base64UrlCrypto.base64ToUrlBase64(buf.toString('base64')));
         }
