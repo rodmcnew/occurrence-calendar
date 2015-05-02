@@ -53,7 +53,6 @@ module.exports = function (app, fbConfig, sessionCookieSecret) {
     });
     passport.deserializeUser(function (id, done) {
         User.findOne({facebookId: id}, function (err, user) {
-            console.log('deserialize', err, user);
             done(err, user);
         })
     });
