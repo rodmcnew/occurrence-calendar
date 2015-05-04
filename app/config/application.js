@@ -1,7 +1,7 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
-    secretConfig = require('./secrets');
+    secretConfig = require('../../secrets');
 
 app.port = process.env.PORT || 8080;
 app.env = process.env.NODE_ENV || 'development';
