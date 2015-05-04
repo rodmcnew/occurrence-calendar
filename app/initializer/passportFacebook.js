@@ -58,7 +58,11 @@ module.exports = function (app, fbCallbackUrl, fbAppId, fbAppSecret, sessionCook
     });
 
     app.use(require('cookie-parser')());
-    app.use(require('express-session')({secret: sessionCookieSecret }));
+    app.use(require('express-session')({
+        secret: sessionCookieSecret,
+        resave: true,
+        saveUninitialized: true
+    }));
     app.use(passport.initialize());
     app.use(passport.session());
 
