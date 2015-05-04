@@ -31,7 +31,7 @@ calendarHelpers.directive('occurrenceCalendar', function () {
         var foundToday = false;
         var dayOfWeek = 0;
         // Ensure we end on a saturday
-        while (!foundToday || dayOfWeek != 0) {
+        while (!foundToday || dayOfWeek != 6) {
             day.add({ days: +1 });
             dayOfWeek = day.getDay();
             if (dayOfWeek == 0) {
