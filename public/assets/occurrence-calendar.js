@@ -47,10 +47,6 @@ calendarHelpers.directive('occurrenceCalendar', function () {
             if (dayId == today) {
                 foundToday = true;
             }
-            // Ensure we end on a saturday
-            if (foundToday && dayOfWeek == 0) {
-                break;
-            }
             var dayOfMonth = day.getUTCDate();
 
             var value = 0;
