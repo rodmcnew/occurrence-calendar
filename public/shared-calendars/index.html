@@ -5,16 +5,10 @@
     <title>Occurrence Calendar</title>
     <link rel="stylesheet" href="/assets/style.css"/>
     <script src="/assets/angular.min.js-and-date.min.js"></script>
+    <script type="text/javascript" src="/assets/occurrence-calendar.js"></script>
     <script type="text/javascript" src="controller.js"></script>
 </head>
 <body ng-controller="CalendarCtrl">
-<table>
-    <tr ng-repeat="week in weeks">
-        <td ng-repeat="day in week" ng-click="dayClick(day)"
-            ng-class="{oddMonth: day.oddMonth,today:day.today,occurrence: day.value==1}">
-            {{day.dayText}}
-        </td>
-    </tr>
-</table>
+<occurrence-calendar calendar="calendar" on-day-change="onDayChange"/>
 </body>
 </html>

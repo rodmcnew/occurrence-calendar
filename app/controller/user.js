@@ -6,7 +6,7 @@ var User = require('../model/user');
 
 exports.getCurrent = function (req, res) {
     if(!req.isAuthenticated()){
-        res.send(401);
+        res.sendStatus(401);
     }
     res.send({calendars:req.user.calendars});
 };

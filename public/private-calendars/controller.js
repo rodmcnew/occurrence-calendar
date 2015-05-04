@@ -1,90 +1,67 @@
-var calendarApp = angular.module('calendarApp', []);
+var calendarApp = angular.module('calendarApp', ['calendarHelpers']);
 
 calendarApp.controller('HomeCtrl', function ($scope, $http, $location) {
 
-    var months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+    /**
+     * Calendar's api base url
+     *
+     * @type {string}
+     */
     var apiBase = '/api/calendars';
 
-    $scope.weeks = [];
-    $scope.habitDays = [];
-
-    function authError() {
+    /**
+     * Handle api errors
+     */
+    function apiError() {
+        alert('Could not communicate with server. Check your internet Connection');
+        // Try re-authenticating them
         window.location.replace('/login/facebook');
     }
 
-    $http.get('/api/user').success(function (data) {
-        $scope.calendars = data.calendars;
-        $scope.calendarId = $scope.calendars[0].id;
-
-        $location.search('calendar', $scope.calendarId).replace();
-        $http.get(getApiUrl()).success(handleCalanderResonse).error(authError);
-    }).error(authError);
-
+    /**
+     * Returns the calendar api url
+     *
+     * @returns {string}
+     */
     function getApiUrl() {
         return apiBase + '/' + $location.search().calendar
     }
 
-    function getDayId(date) {
-        return date.getUTCFullYear() + '-' + date.getUTCMonth() + '-' + date.getUTCDate();
+    /**
+     * Handle the response for the current user data and load the users calendars
+     *
+     * @param data
+     */
+    function handleUserResponse(data) {
+        $scope.calendars = data.calendars;
+        $scope.calendarId = $scope.calendars[0].id;
+        $location.search('calendar', $scope.calendarId).replace();
+        $http.get(getApiUrl()).success(handleCalenderResponse).error(apiError);
     }
 
-    function handleCalanderResonse(calendar) {
-        $scope.habitDays = calendar.days;
-        setupDays();
+    /**
+     * Handle the response for a given calendar and render it
+     *
+     * @param calendar
+     */
+    function handleCalenderResponse(calendar) {
+        $scope.calendar = calendar;
         setTimeout(function () {
             window.scrollTo(0, 99999);
         }, 10);
     }
 
-    function setupDays() {
-        var today = getDayId(Date.today());
-        var day = Date.today().add({ days: -365 });
-        var end = Date.today().add({ days: +7 });
-        var foundFirstSun = false;
-        var week = 0;
-        while (day <= end) {
-            if (day.getDay() == 0) {
-                if (!foundFirstSun) {
-                    foundFirstSun = true;
-                }
-                week++;
-                $scope.weeks[week] = []
-            }
-            if (foundFirstSun) {
-                var dayOfMonth = day.getUTCDate();
-                var dayId = getDayId(day);
-
-                var value = 0;
-                if ($scope.habitDays[dayId]) {
-                    value = $scope.habitDays[dayId];
-                }
-
-                var month = day.getUTCMonth();
-
-                var dayText = dayOfMonth;
-                if (dayOfMonth == 1) {
-                    dayText = months[month] + ' ' + dayOfMonth;
-                }
-
-                var newDay = {
-                    dayText: dayText,
-                    oddMonth: month % 2 == 1,
-                    today: dayId == today,
-                    id: dayId,
-                    value: value
-                };
-                $scope.weeks[week].push(newDay);
-            }
-            day.add({ days: +1 });
-        }
-    }
-
-    $scope.dayClick = function (day) {
-        if (day.value == 1) {
-            day.value = 0;
-        } else {
-            day.value = 1;
-        }
-        $http.put(getApiUrl() + '/' + day.id, {value: day.value}).error(authError);
+    /**
+     * Ensure day value changes are saved on the server
+     *
+     * @param day
+     */
+    $scope.onDayChange = function (day) {
+        $http.put(getApiUrl() + '/' + day.id, {value: day.value}).error(apiError);
     };
+
+    /**
+     * Get the user's calendar list to start everything off
+     */
+    $http.get('/api/user').success(handleUserResponse).error(apiError);
 });
