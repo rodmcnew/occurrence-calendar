@@ -29,7 +29,7 @@ require('../initializer/passportFacebook.js')(
 );
 
 // Init middleware
-app.use(express.static(__dirname + '/../../public'));
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
