@@ -13,7 +13,7 @@ calendarApp.controller('CalendarCtrl', function ($scope, $http, $location) {
         $http.get(getApiUrl()).success(handleCalanderResonse);
     } else {
         $http.post(apiBase).success(function (calendar) {
-            $location.search('calendar', calendar.shareUrl);
+            $location.search('calendar', calendar.shareUrl).replace();
             handleCalanderResonse(calendar);
             setTimeout(function () {
                 alert('New calendar created!\n\nBookmark this page to access your calendar later.\n\nTap a day to toggle its status. Changes are saved immediately.');

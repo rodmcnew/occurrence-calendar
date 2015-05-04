@@ -15,7 +15,8 @@ calendarApp.controller('HomeCtrl', function ($scope, $http, $location) {
     $http.get('/api/user').success(function (data) {
         $scope.calendars = data.calendars;
         $scope.calendarId = $scope.calendars[0].id;
-        $location.search('calendar', $scope.calendarId);
+
+        $location.search('calendar', $scope.calendarId).replace();
         $http.get(getApiUrl()).success(handleCalanderResonse).error(authError);
     }).error(authError);
 
