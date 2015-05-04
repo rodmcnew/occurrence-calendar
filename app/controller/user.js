@@ -1,7 +1,3 @@
-//exports.form = function (req, res) {
-//    res.render('user/create');
-//};
-
 var User = require('../model/user');
 
 exports.getCurrent = function (req, res) {
