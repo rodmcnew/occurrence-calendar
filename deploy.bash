@@ -1,3 +1,4 @@
+# This script deploys the app to Heroku
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd $DIR/../occurrence-calender-deploy
 if [ $? -eq 0 ]; then
