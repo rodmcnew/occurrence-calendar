@@ -1,13 +1,13 @@
-module.exports = function (app, fbConfig, sessionCookieSecret) {
+module.exports = function (app, fbCallbackUrl, fbAppId, fbAppSecret, sessionCookieSecret) {
     var passport = require('passport'),
         FacebookStrategy = require('passport-facebook');
-    var User = App.model('user');
-    var calendarRepo = App.require('repos/calendarRepo');
+    var User = require('../model/user');
+    var calendarRepo = require('../repos/calendarRepo');
 
     passport.use('facebook', new FacebookStrategy({
-            clientID: fbConfig.appID,
-            clientSecret: fbConfig.appSecret,
-            callbackURL: fbConfig.callbackUrl
+            clientID: fbAppId,
+            clientSecret: fbAppSecret,
+            callbackURL: fbCallbackUrl
         },
 
         // facebook will send back the tokens and profile

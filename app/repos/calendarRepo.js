@@ -1,6 +1,6 @@
 crypto = require('crypto');
 
-var Calendar = App.model('calendar');
+var Calendar = require('../model/calendar');
 
 exports.readShared = function (shareUrl, callback) {
     var urlParts = shareUrl.split('.');

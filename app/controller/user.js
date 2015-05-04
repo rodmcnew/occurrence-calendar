@@ -2,7 +2,7 @@
 //    res.render('user/create');
 //};
 
-var User = App.model('user');
+var User = require('../model/user');
 
 exports.getCurrent = function (req, res) {
     if(!req.isAuthenticated()){

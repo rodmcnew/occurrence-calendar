@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-function connect(connectionString) {
+module.exports = function (connectionString) {
     mongoose.connect(connectionString);
 
     var db = mongoose.connection;
@@ -8,6 +8,4 @@ function connect(connectionString) {
     db.once('open', function () {
         console.log('Mongoose connected to', connectionString);
     });
-}
-
-module.exports = connect;
+};

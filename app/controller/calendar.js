@@ -1,4 +1,4 @@
-calendarRepo = App.require('repos/calendarRepo');
+calendarRepo = require('../repos/calendarRepo');
 
 exports.postShared = function (req, res) {
    calendarRepo.createShared(function (calendar) {
