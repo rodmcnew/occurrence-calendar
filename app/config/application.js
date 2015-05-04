@@ -17,7 +17,9 @@ if (app.env == 'development') {
 }
 
 // Init dependencies
-require('../initializer/database')(process.env.MONGOHQ_URL || 'mongodb://localhost/test');
+require('../initializer/mongoose')(
+    process.env.MONGOHQ_URL || 'mongodb://localhost/test'
+);
 require('../initializer/passportFacebook.js')(
     app,
     baseUrl + '/login/facebook/callback',
