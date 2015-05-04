@@ -1,5 +1,5 @@
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-cd $DIR../occurrence-calender-deploy
+cd $DIR/../occurrence-calender-deploy
 cp -R ../occurrence-calender/* ./
 rm ./app/config/secret/.gitignore
 git add .
