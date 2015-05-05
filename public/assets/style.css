@@ -52,7 +52,11 @@ table {
 
 .main .btn {
     float: right;
-    margin-top: 3em;
+    margin-top: 2em;
+}
+
+.main ul {
+    margin-top: 2em;
 }
 
 .main {
