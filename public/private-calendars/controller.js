@@ -12,10 +12,12 @@ calendarApp.controller('HomeCtrl', function ($scope, $http, $location) {
     /**
      * Handle api errors
      */
-    function apiError() {
+    function apiError(data) {
+	if(data.error && data.error == 'notAuthenticated'){
+            window.location.replace('/login/facebook');
+            return
+        }
         alert('Could not communicate with server. Check your internet Connection');
-        // Try re-authenticating them
-        window.location.replace('/login/facebook');
     }
 
     /**
