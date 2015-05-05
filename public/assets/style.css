@@ -66,3 +66,11 @@ table {
 .main h2{
     text-align: center;
 }
+
+.main .comments{
+    padding-top: 1em;
+}
+
+.main .row{
+    padding-top: 1em;
+}
