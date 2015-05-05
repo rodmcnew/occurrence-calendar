@@ -4,8 +4,8 @@ exports.putShared = function (req, res, next) {
     calendarRepo.readShared(
         req.params.shareKey,
         function (calendar) {
-            calendar.ensureHasDays();
             if (calendar) {
+                calendar.ensureHasDays();
                 if (validateDay(req.params.dayId)
                     && validateDayValue(req.body.value)
                     ) {
@@ -47,8 +47,8 @@ exports.put = function (req, res, next) {
     calendarRepo.get(
         req.params.id,
         function (calendar) {
-            calendar.ensureHasDays();
             if (calendar) {
+                calendar.ensureHasDays();
                 if (validateDay(req.params.dayId)
                     && validateDayValue(req.body.value)
                     ) {
