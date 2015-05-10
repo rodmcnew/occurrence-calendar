@@ -32,6 +32,7 @@ function modifyOccurrence(calendar, dayId, res, action) {
         modified = true;
     }
 
+    // If the db already reflects what the client asked for, just return 200
     if (!modified) {
         res.sendStatus(200);
         return;
