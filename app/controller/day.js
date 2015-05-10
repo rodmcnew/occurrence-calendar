@@ -1,13 +1,5 @@
 calendarRepo = require('../repos/calendarRepo');
 
-function validateDay(day) {
-    var dayParts = day.split('-');
-    return dayParts.length == 3
-        && isFinite(dayParts[0]) && dayParts[0] >= 2000 && dayParts[0] <= 2100
-        && isFinite(dayParts[1]) && dayParts[1] >= 0 && dayParts[1] <= 12
-        && isFinite(dayParts[2]) && dayParts[2] >= 1 && dayParts[2] <= 31;
-}
-
 function modifyOccurrence(calendar, dayId, res, action) {
 
     if (!calendar) {
@@ -47,6 +39,14 @@ function modifyOccurrence(calendar, dayId, res, action) {
     });
 }
 
+function validateDay(day) {
+    var dayParts = day.split('-');
+    return dayParts.length == 3
+        && isFinite(dayParts[0]) && dayParts[0] >= 2000 && dayParts[0] <= 2100
+        && isFinite(dayParts[1]) && dayParts[1] >= 0 && dayParts[1] <= 12
+        && isFinite(dayParts[2]) && dayParts[2] >= 1 && dayParts[2] <= 31;
+}
+
 function modifyOccurrencePrivate(req, res, action) {
     if (!req.isAuthenticated() || !req.user.ownsCalendar(req.params.id)) {
         res.sendStatus(401);
@@ -83,5 +83,4 @@ exports.putPrivate = function (req, res) {
 
 exports.deletePrivate = function (req, res) {
     modifyOccurrencePrivate(req, res, 'delete');
-
 };
