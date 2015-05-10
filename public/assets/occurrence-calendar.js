@@ -21,10 +21,10 @@ calendarHelpers.directive('occurrenceCalendar', function () {
         if (!$scope.calendar) {
             return;
         }
-        var months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
         var today = getDayId(Date.today());
-        var day = Date.today().add({ days: -365-6 });
+        var day = Date.today().add({days: -365 - 6});
         var foundFirstSun = false;
         var week = 0;
         var weeks = [];
@@ -32,7 +32,7 @@ calendarHelpers.directive('occurrenceCalendar', function () {
         var dayOfWeek = 0;
         // Ensure we end on a saturday
         while (!foundToday || dayOfWeek != 6) {
-            day.add({ days: +1 });
+            day.add({days: +1});
             dayOfWeek = day.getDay();
             if (dayOfWeek == 0) {
                 foundFirstSun = true;
@@ -50,8 +50,8 @@ calendarHelpers.directive('occurrenceCalendar', function () {
             var dayOfMonth = day.getUTCDate();
 
             var value = 0;
-            if ($scope.calendar.days[dayId]) {
-                value = $scope.calendar.days[dayId];
+            if ($scope.calendar.days.indexOf(dayId) > -1) {
+                value = 1;
             }
             var month = day.getUTCMonth();
 
@@ -100,7 +100,7 @@ calendarHelpers.directive('occurrenceCalendar', function () {
     }
 
     // Return the directive configuration
-    return{
+    return {
         link: link,
         restrict: 'E',
         scope: {
@@ -108,12 +108,12 @@ calendarHelpers.directive('occurrenceCalendar', function () {
             'onDayChange': '='
         },
         template: '<table>' +
-            '<tr ng-repeat="week in weeks">' +
-            '<td ng-repeat="day in week" ng-click="dayClick(day)"' +
-            ' ng-class="{oddMonth: day.oddMonth,today:day.today,occurrence: day.value==1}">' +
-            '{{day.dayText}}' +
-            '</td>' +
-            '</tr>' +
-            '</table>'
+        '<tr ng-repeat="week in weeks">' +
+        '<td ng-repeat="day in week" ng-click="dayClick(day)"' +
+        ' ng-class="{oddMonth: day.oddMonth,today:day.today,occurrence: day.value==1}">' +
+        '{{day.dayText}}' +
+        '</td>' +
+        '</tr>' +
+        '</table>'
     }
 });

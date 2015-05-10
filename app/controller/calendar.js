@@ -3,7 +3,8 @@ calendarRepo = require('../repos/calendarRepo');
 exports.postShared = function (req, res) {
    calendarRepo.createShared(function (calendar) {
         if (calendar) {
-            res.send(calendar.toRest());
+            // Send only the public properties of the calendar
+            res.send(calendar.toPublic());
         } else {
             res.sendStatus(500);
         }
@@ -16,7 +17,7 @@ exports.getShared = function (req, res) {
         function (calendar) {
             if (calendar) {
                 // Send only the public properties of the calendar
-                res.send(calendar.toRest());
+                res.send(calendar.toPublic());
             } else {
                 res.sendStatus(404);
             }
@@ -34,7 +35,7 @@ exports.get = function (req, res) {
         function (calendar) {
             if (calendar) {
                 // Send only the public properties of the calendar
-                res.send(calendar.toRest());
+                res.send(calendar.toPublic());
             } else {
                 res.sendStatus(404);
             }

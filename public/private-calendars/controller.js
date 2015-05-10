@@ -13,7 +13,7 @@ calendarApp.controller('HomeCtrl', function ($scope, $http, $location) {
      * Handle api errors
      */
     function apiError(data) {
-	if(data.error && data.error == 'notAuthenticated'){
+        if (data.error && data.error == 'notAuthenticated') {
             window.location.replace('/login/facebook');
             return
         }
@@ -59,7 +59,12 @@ calendarApp.controller('HomeCtrl', function ($scope, $http, $location) {
      * @param day
      */
     $scope.onDayChange = function (day) {
-        $http.put(getApiUrl() + '/' + day.id, {value: day.value}).error(apiError);
+        var url = getApiUrl() + '/' + day.id;
+        if (day.value == 1) {
+            $http.put(url).error(apiError);
+        } else {
+            $http.delete(url).error(apiError);
+        }
     };
 
     /**

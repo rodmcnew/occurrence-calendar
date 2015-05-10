@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
     shareKey: String,
-    days: mongoose.Schema.Types.Mixed
+    days: Array
 });
 
 schema.methods.getShareUrl = function () {
@@ -12,24 +12,16 @@ schema.methods.getShareUrl = function () {
     return false;
 };
 schema.methods.getDays = function () {
-    if (this.days) {
+    //if (this.days) {
         return this.days;
-    }
-    return {};
+    //}
+    //return [];
 };
-schema.methods.toRest = function () {
+schema.methods.toPublic = function () {
     return {
         shareUrl: this.getShareUrl(),
         days: this.getDays()
     };
-};
-/**
- * @TODO FIND BETTER WAY
- */
-schema.methods.ensureHasDays = function () {
-    if (!this.days) {
-        this.days = {};
-    }
 };
 
 var Model = mongoose.model('Calendar', schema);

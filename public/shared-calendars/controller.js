@@ -41,7 +41,12 @@ calendarApp.controller('CalendarCtrl', function ($scope, $http, $location) {
      * @param day
      */
     $scope.onDayChange = function (day) {
-        $http.put(getApiUrl() + '/' + day.id, {value: day.value}).error(apiError);
+        var url = getApiUrl() + '/' + day.id;
+        if (day.value == 1) {
+            $http.put(url).error(apiError);
+        } else {
+            $http.delete(url).error(apiError);
+        }
     };
 
     /**
