@@ -5,22 +5,27 @@ var schema = new mongoose.Schema({
     days: Array
 });
 
+/**
+ * Returns the calendar's shareUrl if it has one.
+ * @returns {*}
+ */
 schema.methods.getShareUrl = function () {
     if (this.shareKey) {
         return this._id + '.' + this.shareKey;
     }
     return false;
 };
-schema.methods.getDays = function () {
-    //if (this.days) {
-        return this.days;
-    //}
-    //return [];
-};
+
+/**
+ * Returns a publicly shareable version of the calendar that can be
+ * sent to clients.
+ *
+ * @returns {{shareUrl: *, days: *}}
+ */
 schema.methods.toPublic = function () {
     return {
         shareUrl: this.getShareUrl(),
-        days: this.getDays()
+        days: this.days()
     };
 };
 

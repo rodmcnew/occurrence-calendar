@@ -2,7 +2,7 @@ module.exports = function (app) {
 
     // Api Routes for Calendar
     var calendar = require('../controller/calendar');
-    app.get('/api/calendars/:id', calendar.get);
+    app.get('/api/calendars/:id', calendar.getPrivate);
     app.get('/api/shared-calendars/:shareKey', calendar.getShared);
     app.post('/api/shared-calendars', calendar.postShared);
 
