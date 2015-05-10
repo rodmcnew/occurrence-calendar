@@ -52,6 +52,7 @@ function modifyOccurrence(calendar, dayId, res, action) {
  * Returns true if day is in the valid YYYY-MM-DD format
  *
  * @param {String} day the day te to modify in YYYY-MM-DD format
+ *
  * @returns {boolean}
  */
 function validateDay(day) {
