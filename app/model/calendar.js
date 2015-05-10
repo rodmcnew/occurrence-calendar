@@ -25,7 +25,7 @@ schema.methods.getShareUrl = function () {
 schema.methods.toPublic = function () {
     return {
         shareUrl: this.getShareUrl(),
-        days: this.days()
+        days: this.days
     };
 };
 
