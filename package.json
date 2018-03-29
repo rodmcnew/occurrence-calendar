@@ -6,7 +6,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo 'No Tests Yet'",
-    "start": "./node_modules/.bin/nodemon ./app.js --exec babel-node --presets es2015,stage-2"
+    "start": "./node_modules/.bin/nodemon ./app.js --exec babel-node --presets es2015,stage-2",
+    "heroku-postbuild": "npm install && npm run start"
   },
   "dependencies": {
     "body-parser": "~1.12.3",
