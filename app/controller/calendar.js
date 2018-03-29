@@ -1,4 +1,4 @@
-calendarRepo = require('../repos/calendarRepo');
+import calendarRepo from '../repos/calendarRepo';
 
 /**
  * Handle post requests for shared calendars

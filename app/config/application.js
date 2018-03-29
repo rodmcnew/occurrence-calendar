@@ -1,31 +1,26 @@
 var express = require('express'),
     app = express(),
-    bodyParser = require('body-parser'),
-    secretConfig = require('./secret/secrets');
+    bodyParser = require('body-parser');
 
 app.port = process.env.PORT || 8080;
 app.env = process.env.NODE_ENV || 'development';
 
 //@TODO remove this hack that was added because couldn't get heroku ENV working
-if (process.env.MONGOHQ_URL) {
+if (process.env.MONGODB_URI) {
     app.env = 'production';
-}
-
-var baseUrl = 'http://ocal.rodmcnew.com';
-if (app.env == 'development') {
-    baseUrl = 'http://local.ocal.rodmcnew.com:8080';
 }
 
 // Init dependencies
 require('../initializer/mongoose')(
-    process.env.MONGOHQ_URL || 'mongodb://localhost/test'
+    process.env.MONGODB_URI || 'mongodb://localhost/test'
 );
+
 require('../initializer/passportFacebook.js')(
     app,
-    baseUrl + '/login/facebook/callback',
-    secretConfig.facebook.appId,
-    secretConfig.facebook.appSecret,
-    secretConfig.sessionCookieSecret
+    process.env.BASE_URL + '/login/facebook/callback',
+    process.env.FACEBOOK_APP_ID,
+    process.env.FACEBOOK_APP_SECRET,
+    process.env.SESSION_COOKIE_SECRET
 );
 
 // Init middleware

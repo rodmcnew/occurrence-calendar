@@ -1,4 +1,4 @@
-calendarRepo = require('../repos/calendarRepo');
+import calendarRepo from '../repos/calendarRepo';
 
 /**
  * Put or Delete an occurrence day on the given calendar with the given action

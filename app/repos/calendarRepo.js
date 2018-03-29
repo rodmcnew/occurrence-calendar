@@ -1,4 +1,4 @@
-crypto = require('crypto');
+import crypto from 'crypto';
 
 var Calendar = require('../model/calendar');
 
@@ -66,16 +66,8 @@ exports.create = function (callback) {
 /**
  * Make the share key for a calendar.
  *
- * 8 bytes should take 292471208 years to brute force at 1000 tries per second
- * 256^8/1000/60/60/24/365/2=292471208
- *
  * @param callback
  */
 function makeShareKey(callback) {
-    crypto.randomBytes(
-        8,
-        function (ex, buf) {
-            callback(buf.toString('base64').replace(/\//g, '_').replace(/\+/g, '-').replace(/=+$/g, ''));
-        }
-    );
+    callback(crypto.randomBytes(32).toString('hex')); //32 bytes makes a 256 bit key
 }
