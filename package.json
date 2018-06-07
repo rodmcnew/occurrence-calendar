@@ -8,10 +8,10 @@
   "scripts": {
     "lint": "eslint .",
     "start": "cd client; npm run build; cd ..; node .",
-    "full-build": "npm install; cd client; npm install; npm run build; cd ..",
+    "build-client": "cd client; npm install; npm run build; cd ..",
     "serve": "node ./node_modules/forever/bin/forever .",
     "posttest": "npm run lint && nsp check",
-    "postinstall": "npm run full-build"
+    "postinstall": "npm run build-client"
   },
   "dependencies": {
     "compression": "^1.0.3",
