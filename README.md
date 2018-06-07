@@ -1,5 +1,4 @@
 # Occurrence Calendar v2
-
 Demo running at:
 https://occurrence-calendar.herokuapp.com/
 
