@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Calendar from '../model/Calendar';
+import generateRandomString from './generateRandomString';
 
 /**
  * The server will return calendars missing the occurrences property if there are none.
@@ -7,34 +9,24 @@ import axios from 'axios';
  * @param calendar
  * @return {any}
  */
-function ensueCalendarHasOccurences(calendar: any) {//@todo remove any
+function ensueCalendarHasOccurrences(calendar: Calendar): Calendar {
     if (!calendar.occurrences) {
         calendar.occurrences = [];
     }
     return calendar;
 }
 
-function generateRandomAuthToken(length: number) {//@todo move to another file?
-    function dec2hex(dec: number) {
-        return ('0' + dec.toString(16)).substr(-2)
-    }
-
-    const arr = new Uint8Array((length || 40) / 2);
-    window.crypto.getRandomValues(arr);
-    return Array.from(arr, dec2hex).join('')
-}
-
 export function createCalendar() {
     return new Promise((resolve, reject) => {
         axios.post('/api/Calendars', {
-            authorization: generateRandomAuthToken(64),
+            authorization: generateRandomString(64),
         })
             .then((response) => {
-                resolve(ensueCalendarHasOccurences(response.data));
+                resolve(ensueCalendarHasOccurrences(response.data));
             })
-        // .catch(function (error) {
-        //     console.log(error);
-        // });
+            .catch(function (error) {
+                reject(error);
+            });
     });
 }
 
@@ -42,11 +34,11 @@ export function fetchCalendar(id: string, authorization: string) {
     return new Promise((resolve, reject) => {
         axios.get('/api/Calendars/' + id + '?authorization=' + authorization)
             .then((response) => {
-                resolve(ensueCalendarHasOccurences(response.data));
+                resolve(ensueCalendarHasOccurrences(response.data));
             })
-        // .catch(function (error) {
-        //     console.log(error);
-        // });
+            .catch(function (error) {
+                reject(error);
+            });
     });
 }
 
@@ -57,10 +49,10 @@ export function putCalendarOccurrences(id: string, authorization: string, occurr
             {occurrences: occurrences}
         )
             .then((response) => {
-                resolve(ensueCalendarHasOccurences(response.data));
+                resolve(ensueCalendarHasOccurrences(response.data));
             })
-        // .catch(function (error) {
-        //     console.log(error);
-        // });
+            .catch(function (error) {
+                reject(error);
+            });
     });
 }

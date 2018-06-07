@@ -8,15 +8,20 @@
   "scripts": {
     "lint": "eslint .",
     "start": "cd client; npm run build; cd ..; node .",
-    "posttest": "npm run lint && nsp check"
+    "full-build": "npm-install; cd client; npm install; npm run build; cd ..; node .",
+    "serve": "node ./node_modules/forever/bin/forever .",
+    "posttest": "npm run lint && nsp check",
+    "postinstall": "npm run full-build"
   },
   "dependencies": {
     "compression": "^1.0.3",
     "cors": "^2.5.2",
+    "forever": "^0.15.3",
     "helmet": "^3.10.0",
     "loopback": "^3.19.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^6.0.0",
+    "loopback-connector-mysql": "^5.2.0",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.0.0"
   },
@@ -29,6 +34,6 @@
     "type": "",
     "url": ""
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "description": "occurrence-calendar"
 }

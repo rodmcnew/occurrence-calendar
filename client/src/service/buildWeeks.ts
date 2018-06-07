@@ -1,31 +1,27 @@
-//@TODO clean this up FOR TS and ES6
+import 'datejs' //Sets the "Date" global let
+import Day from '../model/Day';
 
-import 'datejs' //Sets the "Date" global var
-
-const DateJs = <any>Date; //@TODO get typings for DateJS https://stackoverflow.com/questions/14325774/use-datejs-in-typescript
+const DateJs = <any>Date;
 
 /**
  * Returns the dayId string for a given date in YYYY-MM-DD format
  *
- * @param date
- * @returns {string}
+ * @param {Date} date
+ * @return {string}
  */
-function getDayId(date: any) {//@TODO remove any
+function dateToDateId(date: Date): string {
     return date.getUTCFullYear() + '-' + date.getUTCMonth() + '-' + date.getUTCDate();
 }
 
-
-export default function buildWeeks(occurrences: Array<string>) {
-
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-    var today = getDayId(DateJs.today());
-    var day = DateJs.today().add({days: -365 - 6});
-    var foundFirstSun = false;
-    var week = 0;
-    var weeks: Array<any> = [];//@TODO remove any
-    var foundToday = false;
-    var dayOfWeek = 0;
+export default function buildWeeks(occurrences: Array<string>): Array<Array<Day>> {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    let today = dateToDateId(DateJs.today());
+    let day = DateJs.today().add({days: -365 - 6});
+    let foundFirstSun = false;
+    let week = 0;
+    let weeks: Array<Array<Day>> = [];
+    let foundToday = false;
+    let dayOfWeek = 0;
     // Ensure we end on a saturday
     while (!foundToday || dayOfWeek != 6) {
         day.add({days: +1});
@@ -39,19 +35,19 @@ export default function buildWeeks(occurrences: Array<string>) {
         if (!foundFirstSun) {
             continue
         }
-        var dayId = getDayId(day);
+        let dayId = dateToDateId(day);
         if (dayId == today) {
             foundToday = true;
         }
-        var dayOfMonth = day.getUTCDate();
+        let dayOfMonth = day.getUTCDate();
 
-        var value = 0;
+        let value = 0;
         if (occurrences.indexOf(dayId) !== -1) {
             value = 1;
         }
-        var month = day.getUTCMonth();
+        let month = day.getUTCMonth();
 
-        var dayText = dayOfMonth;
+        let dayText = dayOfMonth;
         if (dayOfMonth == 1) {
             dayText = months[month] + ' ' + dayOfMonth;
         }

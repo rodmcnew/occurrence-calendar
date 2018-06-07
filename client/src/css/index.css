@@ -1,0 +1,86 @@
+/**
+ * OCCURRENCE CALENDAR
+ */
+.calendar td {
+    width: 14%;
+    height: 3em;
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    font-size: 3em;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.calendar table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.calendar td.oddMonth {
+    background-color: #eeeeee;
+}
+
+.calendar td.today {
+    border: 5px solid #007fff;
+    color: #007fff;
+    font-weight: bolder;
+}
+
+.calendar td.occurrence {
+    background-color: #f0ad4e;
+}
+
+.homepage .btn {
+    text-align: center;
+    width: 100%;
+    margin-top: 1em;
+}
+
+.homepage ul {
+    margin-top: 1em;
+}
+
+.homepage {
+    max-width: 700px;
+}
+
+.homepage h2 {
+    text-align: center;
+}
+
+.homepage .comments {
+    padding-top: 1em;
+}
+
+.homepage .row {
+    padding-top: 1em;
+}
+
+.homepage .panel-body {
+    text-align: left;
+}
+
+.homepage .panel {
+    margin-bottom: 0;
+}
+
+.welcome-banner .alert, .error-banner .alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0;
+    margin-bottom: 0;
+    z-index: 1000;
+    text-align: center;
+}
+
+.calendar .welcome-banner .alert, .calendar .error-banner .alert {
+    font-size: 2em;
+}

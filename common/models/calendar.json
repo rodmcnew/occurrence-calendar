@@ -20,6 +20,14 @@
     "authorization": {
       "type": "string",
       "required": true
+    },
+    "createdDate": {
+      "type": "date",
+      "required": true
+    },
+    "modifiedDate": {
+      "type": "date",
+      "required": true
     }
   },
   "validations": [],

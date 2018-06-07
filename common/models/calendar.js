@@ -1,6 +1,12 @@
 'use strict';
 
 module.exports = function (Calendar) {
+    Calendar.beforeRemote('create', function (ctx, modelInstance, next) {
+        ctx.req.body.createdDate = new Date();
+        ctx.req.body.modifiedDate = new Date();
+        next();
+    });
+
     Calendar.findByIdAndAuthorization = function (id, authorization, cb) {
         Calendar.findById(id, function (err, instance) {
             if (instance === null) {
@@ -45,7 +51,18 @@ module.exports = function (Calendar) {
                 error.status = 401;
                 return cb(error);
             }
-            instance.occurrences = occurrences; //@TODO validate day string formats
+
+            for (let occurrence of occurrences) {
+                //Throw error if not in YYYY-MM-DD format.
+                if (occurrence.match(/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])*$/i) === null) {
+                    const error = new Error('Invalid occurrence format');
+                    error.status = 400;
+                    return cb(error);
+                }
+            }
+
+            instance.occurrences = occurrences;
+            instance.modifiedDate = new Date();
             instance.save(function () {
                 cb(null, instance);
             });

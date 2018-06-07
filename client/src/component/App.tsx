@@ -1,8 +1,7 @@
 import * as React from 'react';
-import './App.css';
-import HomepageContainer from './HomepageContainer'
-import CalendarContainer from './CalendarContainer'
-import {HashRouter, Route} from 'react-router-dom'
+import CalendarContainer from './CalendarContainer';
+import HomepageContainer from './HomepageContainer';
+import {HashRouter, Route} from 'react-router-dom';
 
 class App extends React.Component {
     public render() {
