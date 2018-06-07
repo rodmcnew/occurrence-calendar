@@ -1,6 +1,6 @@
 # Occurrence Calendar v2
 
-Demo (v1 not v2) running at:
+Demo running at:
 https://occurrence-calendar.herokuapp.com/
 
 Occurrence Calendar is a web app that allows you to keep a calendar of how often a given event occurs. All changes are saved immediately via REST calls.
@@ -10,6 +10,7 @@ Occurrence Calendar v2 is built with:
 * React
 * Loopback (NodeJs REST API framework)
 * NodeJS
+* MySQL
 
 # TODO in v2
 - Get working with DB on heroku
