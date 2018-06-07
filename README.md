@@ -9,7 +9,7 @@ Occurrence Calendar v2 is built with:
 * React
 * Loopback (NodeJs REST API framework)
 * NodeJS
-* MySql
+* MySQL
 
 ### TODO in v2
 - Undo eject from react-scripts now that found way to disable service worker in index.js
