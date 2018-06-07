@@ -1,0 +1,29 @@
+{
+  "name": "Calendar",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "occurrences": {
+      "type": [
+        "date"
+      ],
+      "required": false
+    },
+    "id": {
+      "type": "string",
+      "generated": true,
+      "required": true
+    },
+    "authorization": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
