@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.css';
-import {fetchCalendar, putCalendarOccurences} from './calendarRepository';
+import {fetchCalendar, putCalendarOccurrences} from './calendarRepository';
 import buildWeeks from './buildWeeks'
 
 interface Calendar { //@TODO move to separate file. and put "I" in front?
@@ -59,7 +59,7 @@ class CalendarContainer extends React.Component<Props> {
             occurrences.push(day.id);
         }
         const routeParams = this.props.match.params;
-        putCalendarOccurences(routeParams.calendarId, routeParams.authorization, occurrences)
+        putCalendarOccurrences(routeParams.calendarId, routeParams.authorization, occurrences)
             .then(this.setStateFromCalenderResponse);
     }
 
