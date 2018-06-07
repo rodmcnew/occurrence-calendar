@@ -1,17 +1,5 @@
-# Occurrence Calendar
-
-Demo running at:
-https://occurrence-calendar.herokuapp.com/
-
-Occurrence Calendar is a web app that allows you to keep a calendar of how often a given event occurs. All changes are saved immediately via REST calls.
-
-Occurrence Calendar is built with:
-* Node.js
-* Express
-* Mongoose
-* Passport
-* AngularJS
-* Bootstrap
-* MongoDB
-
-
+#Dev Notes:
+Comment out this line in /www/occurrence-calendar/client/node_modules/react-scripts-ts/config/webpack.config.prod.js
+```
+navigateFallback: publicUrl + '/index.html
+```
