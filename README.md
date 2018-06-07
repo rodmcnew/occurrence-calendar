@@ -11,7 +11,7 @@ Occurrence Calendar v2 is built with:
 * Loopback (NodeJs REST API framework)
 * NodeJS
 
-#TODO
+# TODO in v2
 - Get working with DB on heroku
 - Get local persistent DB working
 - Make new calendar bookmark explination popup
