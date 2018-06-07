@@ -45,7 +45,7 @@ module.exports = function (Calendar) {
                 error.status = 401;
                 return cb(error);
             }
-            instance.occrrences = occurrences;
+            instance.occurrences = occurrences; //@TODO validate day string formats
             instance.save(function () {
                 cb(null, instance);
             });
@@ -63,7 +63,7 @@ module.exports = function (Calendar) {
                 arg: 'authorization', type: 'any', description: 'Authorization token', required: true,
                 http: {source: 'query'}
             },
-            {arg: 'occurrences', type: ['date'], description: 'Occurrences', required: false},
+            {arg: 'occurrences', type: ['strin'], description: 'Occurrences', required: false},
         ],
         returns: {arg: 'data', type: Calendar, root: true},
         http: {verb: 'patch', path: '/:id'}

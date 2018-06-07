@@ -1,20 +1,19 @@
 import * as React from 'react';
 import './App.css';
 import HomepageContainer from './HomepageContainer'
-import logo from './logo.svg';
+import CalendarContainer from './CalendarContainer'
+import {HashRouter, Route} from 'react-router-dom'
 
 class App extends React.Component {
     public render() {
         return (
             <div className="App">
-                <HomepageContainer/>
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.tsx</code> and save to reload.
-                </p>
+                <HashRouter>
+                    <div>
+                        <Route exact={true} path="/" component={HomepageContainer}/>
+                        <Route exact={true} path="/calendar/:calendarId/:authorization" component={CalendarContainer}/>
+                    </div>
+                </HashRouter>
             </div>
         );
     }

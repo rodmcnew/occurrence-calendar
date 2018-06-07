@@ -1,21 +1,22 @@
 import * as React from 'react';
 import './App.css';
-import {createCalendar} from './CalendarRepository';
+import {createCalendar} from './calendarRepository';
 
-class App extends React.Component {
+class HomepageContainer extends React.Component {
     public handleCreateCalenderClick() {
-        createCalendar().then(() => {
-            alert(1)
+        createCalendar().then((calendar: any) => { //@TODO remove ANY
+            window.location.href = '/#/calendar/' + calendar.id + '/' + calendar.authorization;
         });
     }
 
     public render() {
         return (
-            <div className="App">
-                <button onClick={this.handleCreateCalenderClick}>Create Calender</button>
+            <div className="container">
+                <br/>
+                <button className="btn btn-primary" onClick={this.handleCreateCalenderClick}>Create Calender</button>
             </div>
         );
     }
 }
 
-export default App;
+export default HomepageContainer;

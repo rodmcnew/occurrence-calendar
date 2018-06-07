@@ -8,7 +8,7 @@
   "properties": {
     "occurrences": {
       "type": [
-        "date"
+        "string"
       ],
       "required": false
     },
