@@ -7,7 +7,7 @@ Occurrence Calendar is a web app that allows you to keep a calendar of how often
 Occurrence Calendar v2 is built with:
 * TypeScript
 * React
-* Loopback (NodeJs REST API framework)
+* Loopback (Node REST API framework)
 * NodeJS
 * MySQL
 
