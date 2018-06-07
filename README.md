@@ -9,6 +9,7 @@ Occurrence Calendar v2 is built with:
 * TypeScript
 * React
 * Loopback (NodeJs REST API framework)
+* NodeJS
 
 #TODO
 - Set randomized auth keys instead of "hihi"
