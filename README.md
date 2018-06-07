@@ -10,7 +10,7 @@ Occurrence Calendar v2 is built with:
 * React
 * Loopback (NodeJs REST API framework)
 * NodeJS
-* MySQL
+* MySql
 
 # TODO in v2
 - Get working with DB on heroku
