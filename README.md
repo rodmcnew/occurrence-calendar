@@ -12,5 +12,6 @@ Occurrence Calendar v2 is built with:
 * MySQL
 
 ### TODO in v2
+- Get initial "scroll to bottom" to work on iPhone
 - Undo eject from react-scripts now that found way to disable service worker in index.js
 - Turn "tslint:recommended" back on and fix all errors
