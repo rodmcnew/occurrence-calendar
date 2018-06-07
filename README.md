@@ -11,7 +11,8 @@ Occurrence Calendar v2 is built with:
 * NodeJS
 * MySQL
 
-### TODO in v2
+### Todo in v2:
 - Get initial "scroll to bottom" to work on iPhone
+- Stop welcome message from flickering during loading
 - Undo eject from react-scripts now that found way to disable service worker in index.js
 - Turn "tslint:recommended" back on and fix all errors
