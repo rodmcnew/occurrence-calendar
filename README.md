@@ -12,8 +12,6 @@ Occurrence Calendar v2 is built with:
 * NodeJS
 * MySql
 
-# TODO in v2
-- Get working with DB on heroku
+### TODO in v2
 - Undo eject from react-scripts now that found way to disable service worker in index.js
-- Organize code? (hard to tell interfaces, react components, and services apart) 
 - Turn "tslint:recommended" back on and fix all errors
