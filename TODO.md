@@ -1,4 +1,3 @@
-- Get initial "scroll to bottom" to work on iPhone
 - Regularly delete old unused calenders (modified date? last dayId?, no dayIds?)
 - Undo eject from react-scripts now that found way to disable service worker in index.js
 - Turn "tslint:recommended" back on and fix all errors
