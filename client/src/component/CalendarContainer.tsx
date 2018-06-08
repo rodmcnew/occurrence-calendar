@@ -19,6 +19,7 @@ class CalendarContainer extends React.Component<CalendarContainerProps> {
         occurrences: Array<string>;
         weeks: Array<Array<Day>>;
         errorMessage: string;
+        loading: boolean;
     };
 
     public bottomElementRef: HTMLDivElement | null;
@@ -26,18 +27,21 @@ class CalendarContainer extends React.Component<CalendarContainerProps> {
     public constructor(props: CalendarContainerProps) {
         super(props);
         this.setStateFromCalenderResponse = this.setStateFromCalenderResponse.bind(this);
+        this.setStateFromErrorResponse = this.setStateFromErrorResponse.bind(this);
         this.handleDayClick = this.handleDayClick.bind(this);
-        this.state = {occurrences: [], weeks: [], errorMessage: ''};
+        this.state = {occurrences: [], weeks: [], errorMessage: '', loading: true};
 
         fetchCalendar(this.props.match.params.calendarId, this.props.match.params.authorization)
-            .then(this.setStateFromCalenderResponse).catch((e) => {
-            this.setState({errorMessage: e.toString()});
-        });
+            .then(this.setStateFromCalenderResponse).catch(this.setStateFromErrorResponse);
+    }
+
+    public setStateFromErrorResponse(error: any) {
+        this.setState({errorMessage: error.toString(), loading: false});
     }
 
     public setStateFromCalenderResponse(calendar: Calendar) {
         const weeks = buildWeeks(calendar.occurrences);
-        this.setState({occurrences: calendar.occurrences, weeks: weeks})
+        this.setState({occurrences: calendar.occurrences, weeks: weeks, loading: false})
     }
 
     public handleDayClick(dayId: string) {
@@ -50,12 +54,9 @@ class CalendarContainer extends React.Component<CalendarContainerProps> {
             occurrences.push(dayId);
         }
         const routeParams = this.props.match.params;
-        this.setState({errorMessage: ''});
+        this.setState({errorMessage: '', loading: true});
         putCalendarOccurrences(routeParams.calendarId, routeParams.authorization, occurrences)
-            .then(this.setStateFromCalenderResponse)
-            .catch((e) => {
-                this.setState({errorMessage: e.toString()});
-            });
+            .then(this.setStateFromCalenderResponse).catch(this.setStateFromErrorResponse);
     }
 
     public scrollToBottom() {
@@ -65,7 +66,7 @@ class CalendarContainer extends React.Component<CalendarContainerProps> {
     }
 
     componentDidMount() {
-        setTimeout(() => this.scrollToBottom(), 100);//would be nice to find way to remove timeout
+        setTimeout(() => this.scrollToBottom(), 500);//would be nice to find way to remove timeout
     }
 
     public render() {
@@ -74,7 +75,7 @@ class CalendarContainer extends React.Component<CalendarContainerProps> {
                 <MetaTags>
                     <meta name="viewport" content="user-scalable=0"/>
                 </MetaTags>
-                {this.state.errorMessage.length === 0 && this.state.occurrences.length === 0 &&
+                {!this.state.loading && this.state.errorMessage.length === 0 && this.state.occurrences.length === 0 &&
                 <CalendarWelcomeBanner/>
                 }
                 <ErrorMessageBanner errorMessage={this.state.errorMessage}/>
