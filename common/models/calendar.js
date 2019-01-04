@@ -54,7 +54,7 @@ module.exports = function (Calendar) {
 
             for (let occurrence of occurrences) {
                 //Throw error if not in YYYY-MM-DD format.
-                if (occurrence.match(/^\d{4}\-([0-1][1-9])\-([0-3][1-9])$/i) === null) {
+                if (occurrence.match(/^\d{4}\-([0-1][0-9])\-([0-3][0-9])$/i) === null) {
                     const error = new Error('Invalid occurrence format');
                     error.status = 400;
                     return cb(error);
