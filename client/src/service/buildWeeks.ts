@@ -10,7 +10,7 @@ const DateJs = <any>Date;
  * @return {string}
  */
 function dateToDateId(date: Date): string {
-    return date.getUTCFullYear() + '-' + date.getUTCMonth() + '-' + date.getUTCDate();
+    return date.toISOString().split('T')[0];
 }
 
 export default function buildWeeks(occurrences: Array<string>): Array<Array<Day>> {
